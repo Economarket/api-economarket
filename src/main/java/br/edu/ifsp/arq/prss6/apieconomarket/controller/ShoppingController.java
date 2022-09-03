@@ -1,10 +1,13 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +26,16 @@ public class ShoppingController {
 
 	@Autowired
 	private ShoppingFacade facade;
+	
+	@GetMapping
+	public List<ShoppingList> getShoppingLists(long userId) {
+		return facade.findByUserId(userId);
+	}
+	
+	@GetMapping("/{id}")
+	public ShoppingList getShoppingList(long id) {
+		return facade.findById(id);
+	}
 	
 	@PostMapping
 	public Long saveShoppingList(@Valid @RequestBody ShoppingList shoppingList) {

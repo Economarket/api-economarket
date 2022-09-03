@@ -1,6 +1,6 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.model.dao;
 
-import java.util.List;
+import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,30 +12,18 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Market {
+public class Schedule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotNull
-	private String uuid;
+	private LocalTime oppeningHour;
 	
 	@NotNull
-	private String locateX;
+	private LocalTime closingHour;
 	
 	@NotNull
-	private String locateY;
-	
-	@NotNull
-	private String name;
-	
-	private String description;
-	
-	private String logo;
-	
-	@NotNull
-	private List<Address> address;
-	
-	private List<Schedule> schedules;
+	private Integer dayOfWeek;
 }

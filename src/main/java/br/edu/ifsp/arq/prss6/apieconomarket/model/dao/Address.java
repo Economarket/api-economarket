@@ -1,7 +1,5 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.model.dao;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,30 +10,29 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Market {
+public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotNull
-	private String uuid;
+	private String cep;
 	
 	@NotNull
-	private String locateX;
+	private String street;
 	
 	@NotNull
-	private String locateY;
+	private String number;
+	
+	private String complement;
 	
 	@NotNull
-	private String name;
-	
-	private String description;
-	
-	private String logo;
+	private String district;
 	
 	@NotNull
-	private List<Address> address;
+	private String city;
 	
-	private List<Schedule> schedules;
+	@NotNull
+	private String state;
 }
