@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Product;
+import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.BrandRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.CategoryRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.MarketRepository;
@@ -37,6 +38,10 @@ public class SearchFacade {
 	private UserRepository userRepository;
 	
 
+	public List<User> findUsers() {
+		return userRepository.findAll();
+	}
+	
 	public List<Product> findProducts() {
 		return productRepository.findAll();
 	}
@@ -74,4 +79,5 @@ public class SearchFacade {
 		//marketWithProductRepository.findByMarketIdAndProductName(marketId, productName);
 		return null;
 	}
+
 }

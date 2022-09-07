@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.SearchFacade;
 import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Product;
+import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 
 @RestController
@@ -20,43 +21,48 @@ public class SearchController {
 	@Autowired
 	private SearchFacade facade;
 	
-	@GetMapping
+	@GetMapping(EndpointsConstMapping.UserEP.MAIN)
+	public List<User> findUsers() {
+		return facade.findUsers();
+	}
+	
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN)
 	public List<Product> findProducts() {
 		return facade.findProducts();
 	}
 	
-	@GetMapping
-	public Product findProductById(@PathVariable long id) {
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/{id}")
+	public Product findProductById(@PathVariable Long id) {
 		return facade.findProductById(id);
 	}
 	
-	@GetMapping
+	@GetMapping(EndpointsConstMapping.MarketEP.MAIN)
 	public List<Market> findMarkets() {
 		return facade.findMarkets();
 	}
 	
-	@GetMapping
-	public Market findMarketById(@PathVariable long id) {
+	@GetMapping(EndpointsConstMapping.MarketEP.MAIN + "/{id}")
+	public Market findMarketById(@PathVariable Long id) {
 		return facade.findMarketById(id);
 	}
 	
-	@GetMapping
-	public List<Market> findMarketsByName(@PathVariable String name) {
-		return facade.findMarketsByName(name);
-	}
-	
-	@GetMapping
-	public List<Product> findProductsByName(@PathVariable String name) {
-		return facade.findProductsByName(name);
-	}
-	
-	@GetMapping
-	public List<Product> findProductsByMarket(@PathVariable long marketId) {
-		return facade.findProductsByMarket(marketId);
-	}
-	
-	@GetMapping
-	public List<Product> findProductsByMarketAndName(@PathVariable long marketId, String productName) {
-		return facade.findProductsByMarketAndName(marketId, productName);
-	}
+//	@GetMapping(EndpointsConstMapping.MarketEP.BY_NAME)
+//	public List<Market> findMarketsByName(@PathVariable String name) {
+//		return facade.findMarketsByName(name);
+//	}
+//	
+//	@GetMapping(EndpointsConstMapping.ItemsEP.PRODUCT)
+//	public List<Product> findProductsByName(@PathVariable String name) {
+//		return facade.findProductsByName(name);
+//	}
+//	
+//	@GetMapping(EndpointsConstMapping.ItemsEP.PRODUCT)
+//	public List<Product> findProductsByMarket(@PathVariable Long marketId) {
+//		return facade.findProductsByMarket(marketId);
+//	}
+//	
+//	@GetMapping(EndpointsConstMapping.ItemsEP.PRODUCT)
+//	public List<Product> findProductsByMarketAndName(@PathVariable Long marketId, String productName) {
+//		return facade.findProductsByMarketAndName(marketId, productName);
+//	}
 }

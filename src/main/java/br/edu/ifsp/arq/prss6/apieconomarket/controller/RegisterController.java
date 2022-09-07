@@ -28,83 +28,83 @@ public class RegisterController {
 	@Autowired
 	private RegisterFacade facade;
 
-	@PostMapping(EndpointsConstMapping.RegisterEP.CATEGORY)
+	@PostMapping(EndpointsConstMapping.ItemsEP.CATEGORY)
 	public Long saveCategory(@Valid @RequestBody Category category) {
 		return facade.saveCategory(category);
 	}
 
-	@PutMapping(EndpointsConstMapping.RegisterEP.CATEGORY)
+	@PutMapping(EndpointsConstMapping.ItemsEP.CATEGORY)
 	public Category updateCategory(@Valid @RequestBody Category category) {
 		return facade.updateCategory(category);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.RegisterEP.CATEGORY)
+	@DeleteMapping(EndpointsConstMapping.ItemsEP.CATEGORY)
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteCategory(@RequestParam long id) {
+	public void deleteCategory(@RequestParam Long id) {
 		facade.deleteCategory(id);
 	}
 
-	@PostMapping(EndpointsConstMapping.RegisterEP.BRAND)
+	@PostMapping(EndpointsConstMapping.ItemsEP.BRAND)
 	public Long saveBrand(@Valid @RequestBody Brand brand) {
 		return facade.saveBrand(brand);
 	}
 
-	@PutMapping(EndpointsConstMapping.RegisterEP.BRAND)
+	@PutMapping(EndpointsConstMapping.ItemsEP.BRAND)
 	public Brand updateBrand(@Valid @RequestBody Brand brand) {
 		return facade.updateBrand(brand);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.RegisterEP.BRAND)
+	@DeleteMapping(EndpointsConstMapping.ItemsEP.BRAND)
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteBrand(@RequestParam long id) {
+	public void deleteBrand(@RequestParam Long id) {
 		facade.deleteBrand(id);
 	}
 
-	@PostMapping(EndpointsConstMapping.RegisterEP.MARKET)
+	@PostMapping(EndpointsConstMapping.MarketEP.MAIN)
 	public Long saveMarket(@Valid @RequestBody Market market) {
 		return facade.saveMarket(market);
 	}
 
-	@PutMapping(EndpointsConstMapping.RegisterEP.MARKET)
+	@PutMapping(EndpointsConstMapping.MarketEP.MAIN)
 	public Market updateMarket(@Valid @RequestBody Market market) {
 		return facade.updateMarket(market);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.RegisterEP.MARKET)
+	@DeleteMapping(EndpointsConstMapping.MarketEP.MAIN)
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteMarket(@RequestParam long id) {
+	public void deleteMarket(@RequestParam Long id) {
 		facade.deleteMarket(id);
 	}
 
-	@PostMapping(EndpointsConstMapping.RegisterEP.PRODUCT)
+	@PostMapping(EndpointsConstMapping.ProductEP.MAIN)
 	public Long saveProduct(@Valid @RequestBody Product product) {
 		return facade.saveProduct(product);
 	}
 
-	@PutMapping(EndpointsConstMapping.RegisterEP.PRODUCT)
+	@PutMapping(EndpointsConstMapping.ProductEP.MAIN)
 	public Product updateProduct(@Valid @RequestBody Product product) {
 		return facade.updateProduct(product);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.RegisterEP.PRODUCT)
+	@DeleteMapping(EndpointsConstMapping.ProductEP.MAIN)
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteProduct(@RequestParam long id) {
+	public void deleteProduct(@RequestParam Long id) {
 		facade.deleteProduct(id);
 	}
 
-	@PostMapping(EndpointsConstMapping.RegisterEP.USER)
+	@PostMapping(EndpointsConstMapping.UserEP.MAIN)
 	public Long saveUser(@Valid @RequestBody User user) {
 		return facade.saveUser(user);
 	}
 
-	@PutMapping(EndpointsConstMapping.RegisterEP.USER)
+	@PutMapping(EndpointsConstMapping.UserEP.MAIN)
 	public User updateUser(@Valid @RequestBody User user) {
 		return facade.updateUser(user);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.RegisterEP.USER)
+	@DeleteMapping(EndpointsConstMapping.UserEP.MAIN)
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteUser(@RequestParam long id) {
+	public void deleteUser(@RequestParam Long id) {
 		facade.deleteUser(id);
 	}
 }
