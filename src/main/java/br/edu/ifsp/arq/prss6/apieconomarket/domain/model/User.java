@@ -46,7 +46,7 @@ public class User {
 	@Email
 	private String email;
 	
-	private double experience;
+	private Double experience;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -33,7 +33,7 @@ public class ShoppingController {
 		return facade.findById(id);
 	}
 	
-	@GetMapping(EndpointsConstMapping.UserEP.MAIN + "/{userId}") //TODO: Mapear endpoint pela classe EndpointsConstMapping
+	@GetMapping(EndpointsConstMapping.UserEP.MAIN + "/{userId}")
 	public List<ShoppingList> getShoppingLists(@PathVariable Long userId) {
 		return facade.findByUserId(userId);
 	}

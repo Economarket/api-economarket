@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
@@ -84,7 +85,7 @@ public class SearchController {
 //	}
 	
 	@GetMapping(EndpointsConstMapping.UserEP.MAIN)
-	public List<User> findUsers() {
+	public List<UserDTO> findUsers() {
 		return facade.findUsers();
 	}
 	
