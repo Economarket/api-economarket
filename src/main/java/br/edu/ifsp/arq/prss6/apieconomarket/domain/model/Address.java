@@ -1,14 +1,18 @@
-package br.edu.ifsp.arq.prss6.apieconomarket.model.dao;
+package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Address {
 
@@ -35,4 +39,8 @@ public class Address {
 	
 	@NotNull
 	private String state;
+	
+	@OneToOne
+	@JoinColumn(name = "market_id", referencedColumnName = "id")
+	private Market market;
 }

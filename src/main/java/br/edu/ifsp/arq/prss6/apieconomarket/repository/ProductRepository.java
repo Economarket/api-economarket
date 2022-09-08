@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Product;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 

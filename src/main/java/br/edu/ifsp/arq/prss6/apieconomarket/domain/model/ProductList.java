@@ -1,4 +1,4 @@
-package br.edu.ifsp.arq.prss6.apieconomarket.model.dao;
+package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +10,13 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 public class ProductList {
 
@@ -22,6 +26,7 @@ public class ProductList {
 	
 	private String uuid;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "shopping_list_id")
 	private ShoppingList shoppingList;

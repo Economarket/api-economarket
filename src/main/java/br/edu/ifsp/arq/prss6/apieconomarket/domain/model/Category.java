@@ -1,4 +1,4 @@
-package br.edu.ifsp.arq.prss6.apieconomarket.model.dao;
+package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,16 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
-public class ShoppingList {
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +28,10 @@ public class ShoppingList {
 	@NotNull
 	private String uuid;
 	
-	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	private User user;
+	@NotNull
+	private String name;
 	
-	@OneToMany(mappedBy = "shoppingList", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ProductList> productList = new ArrayList<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = false)
+	private List<Product> product = new ArrayList<>();
 }

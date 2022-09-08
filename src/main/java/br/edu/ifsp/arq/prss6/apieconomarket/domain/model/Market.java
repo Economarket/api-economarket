@@ -1,4 +1,4 @@
-package br.edu.ifsp.arq.prss6.apieconomarket.model.dao;
+package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import java.util.List;
 
@@ -8,13 +8,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 public class Market {
 
@@ -46,6 +51,7 @@ public class Market {
 	@OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Schedule> schedules;
 	
-	@OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = false)
-	private List<MarketWithProduct> marketWithProduct;
+	@JsonIgnore
+	@ManyToMany(mappedBy = "markets", cascade = CascadeType.ALL)
+	private List<Product> products;
 }

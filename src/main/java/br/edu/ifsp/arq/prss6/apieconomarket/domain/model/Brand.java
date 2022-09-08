@@ -1,4 +1,4 @@
-package br.edu.ifsp.arq.prss6.apieconomarket.model.dao;
+package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 public class Brand {
 
@@ -22,11 +28,13 @@ public class Brand {
 	private Long id;
 	
 	@NotNull
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String searchName;
 	
 	@NotNull
 	private String brandName;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Product> product = new ArrayList<>();
 }

@@ -5,20 +5,20 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.RegisterFacade;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Brand;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Category;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Market;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 
 @RestController
@@ -28,35 +28,35 @@ public class RegisterController {
 	@Autowired
 	private RegisterFacade facade;
 
-	@PostMapping(EndpointsConstMapping.ItemsEP.CATEGORY)
+	@PostMapping(EndpointsConstMapping.CategoryEP.MAIN)
 	public Long saveCategory(@Valid @RequestBody Category category) {
 		return facade.saveCategory(category);
 	}
 
-	@PutMapping(EndpointsConstMapping.ItemsEP.CATEGORY)
+	@PutMapping(EndpointsConstMapping.CategoryEP.MAIN)
 	public Category updateCategory(@Valid @RequestBody Category category) {
 		return facade.updateCategory(category);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.ItemsEP.CATEGORY)
+	@DeleteMapping(EndpointsConstMapping.CategoryEP.MAIN + "/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteCategory(@RequestParam Long id) {
+	public void deleteCategory(@PathVariable Long id) {
 		facade.deleteCategory(id);
 	}
 
-	@PostMapping(EndpointsConstMapping.ItemsEP.BRAND)
+	@PostMapping(EndpointsConstMapping.BrandEP.MAIN)
 	public Long saveBrand(@Valid @RequestBody Brand brand) {
 		return facade.saveBrand(brand);
 	}
 
-	@PutMapping(EndpointsConstMapping.ItemsEP.BRAND)
+	@PutMapping(EndpointsConstMapping.BrandEP.MAIN)
 	public Brand updateBrand(@Valid @RequestBody Brand brand) {
 		return facade.updateBrand(brand);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.ItemsEP.BRAND)
+	@DeleteMapping(EndpointsConstMapping.BrandEP.MAIN + "/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteBrand(@RequestParam Long id) {
+	public void deleteBrand(@PathVariable Long id) {
 		facade.deleteBrand(id);
 	}
 
@@ -70,9 +70,9 @@ public class RegisterController {
 		return facade.updateMarket(market);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.MarketEP.MAIN)
+	@DeleteMapping(EndpointsConstMapping.MarketEP.MAIN + "/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteMarket(@RequestParam Long id) {
+	public void deleteMarket(@PathVariable Long id) {
 		facade.deleteMarket(id);
 	}
 
@@ -86,9 +86,9 @@ public class RegisterController {
 		return facade.updateProduct(product);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.ProductEP.MAIN)
+	@DeleteMapping(EndpointsConstMapping.ProductEP.MAIN + "/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteProduct(@RequestParam Long id) {
+	public void deleteProduct(@PathVariable Long id) {
 		facade.deleteProduct(id);
 	}
 
@@ -102,9 +102,9 @@ public class RegisterController {
 		return facade.updateUser(user);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.UserEP.MAIN)
+	@DeleteMapping(EndpointsConstMapping.UserEP.MAIN + "/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteUser(@RequestParam Long id) {
+	public void deleteUser(@PathVariable Long id) {
 		facade.deleteUser(id);
 	}
 }

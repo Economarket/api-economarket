@@ -2,36 +2,39 @@ package br.edu.ifsp.arq.prss6.apieconomarket.utils;
 
 public class EndpointsConstMapping {
 	
+	public class BrandEP {
+		public static final String MAIN = "/brand";				
+	}
+	
+	public class CategoryEP {
+		public static final String MAIN = "/category";		
+	}
+	
 	public class MarketEP {
-		public static final String MAIN = "market";
+		public static final String MAIN = "/market";
 	}
 	
 	public class PermissionEP {
-		public static final String MAIN = "permission";
+		public static final String MAIN = "/permission";
 	}
 	
 	public class ProductEP {
-		public static final String MAIN = "product";		
+		public static final String MAIN = "/product";		
 	}
 	
 	public class RegisterEP {
-		public static final String MAIN = "register";
+		public static final String MAIN = "/register";
 	}
 	
 	public class SearchEP {
-		public static final String MAIN = "search";
+		public static final String MAIN = "/search";
 	}
 	
 	public class ShoppingEP {
-		public static final String MAIN = "shopping";
-	}
-	
-	public class ItemsEP {
-		public static final String BRAND = "brand";
-		public static final String CATEGORY = "category";
+		public static final String MAIN = "/shopping";
 	}
 	
 	public class UserEP {
-		public static final String MAIN = "user";		
+		public static final String MAIN = "/user";		
 	}
 }

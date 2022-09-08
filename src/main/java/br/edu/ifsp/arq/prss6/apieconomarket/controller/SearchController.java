@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.SearchFacade;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Market;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 
 @RestController
@@ -21,19 +23,24 @@ public class SearchController {
 	@Autowired
 	private SearchFacade facade;
 	
-	@GetMapping(EndpointsConstMapping.UserEP.MAIN)
-	public List<User> findUsers() {
-		return facade.findUsers();
+	@GetMapping(EndpointsConstMapping.CategoryEP.MAIN)
+	public List<Category> findCategories() {
+		return facade.findCategories();
 	}
 	
-	@GetMapping(EndpointsConstMapping.ProductEP.MAIN)
-	public List<Product> findProducts() {
-		return facade.findProducts();
+	@GetMapping(EndpointsConstMapping.CategoryEP.MAIN + "/{id}")
+	public Category findCategoryById(@PathVariable Long id) {
+		return facade.findCategoryById(id);
 	}
 	
-	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/{id}")
-	public Product findProductById(@PathVariable Long id) {
-		return facade.findProductById(id);
+	@GetMapping(EndpointsConstMapping.BrandEP.MAIN)
+	public List<Brand> findBrands() {
+		return facade.findBrands();
+	}
+		
+	@GetMapping(EndpointsConstMapping.BrandEP.MAIN + "/{id}")
+	public Brand findBrandById(@PathVariable Long id) {
+		return facade.findBrandById(id);
 	}
 	
 	@GetMapping(EndpointsConstMapping.MarketEP.MAIN)
@@ -50,7 +57,17 @@ public class SearchController {
 //	public List<Market> findMarketsByName(@PathVariable String name) {
 //		return facade.findMarketsByName(name);
 //	}
-//	
+	
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN)
+	public List<Product> findProducts() {
+		return facade.findProducts();
+	}
+	
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/{id}")
+	public Product findProductById(@PathVariable Long id) {
+		return facade.findProductById(id);
+	}
+	
 //	@GetMapping(EndpointsConstMapping.ItemsEP.PRODUCT)
 //	public List<Product> findProductsByName(@PathVariable String name) {
 //		return facade.findProductsByName(name);
@@ -65,4 +82,14 @@ public class SearchController {
 //	public List<Product> findProductsByMarketAndName(@PathVariable Long marketId, String productName) {
 //		return facade.findProductsByMarketAndName(marketId, productName);
 //	}
+	
+	@GetMapping(EndpointsConstMapping.UserEP.MAIN)
+	public List<User> findUsers() {
+		return facade.findUsers();
+	}
+	
+	@GetMapping(EndpointsConstMapping.UserEP.MAIN + "/{id}")
+	public User findUserById(@PathVariable Long id) {
+		return facade.findUserById(id);
+	}
 }

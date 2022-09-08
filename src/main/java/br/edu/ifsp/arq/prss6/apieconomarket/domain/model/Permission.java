@@ -1,18 +1,21 @@
-package br.edu.ifsp.arq.prss6.apieconomarket.model.dao;
+package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 public class Permission {
 
@@ -23,6 +26,7 @@ public class Permission {
 	@NotNull
 	private String name;
 	
-	@OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserPermission> userPermissions;
+	@JsonIgnore
+	@ManyToMany(mappedBy = "permissions")
+	private List<User> users;
 }

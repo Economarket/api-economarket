@@ -1,4 +1,4 @@
-package br.edu.ifsp.arq.prss6.apieconomarket.model.dao;
+package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import java.time.LocalTime;
 
@@ -10,9 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 public class Schedule {
 
@@ -29,6 +33,8 @@ public class Schedule {
 	@NotNull
 	private Integer dayOfWeek;
 	
+	@JsonIgnore
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "market_id")
 	private Market market;

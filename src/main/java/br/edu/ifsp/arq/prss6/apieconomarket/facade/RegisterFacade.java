@@ -3,11 +3,11 @@ package br.edu.ifsp.arq.prss6.apieconomarket.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Brand;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Category;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Market;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.User;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.BrandRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.CategoryRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.MarketRepository;

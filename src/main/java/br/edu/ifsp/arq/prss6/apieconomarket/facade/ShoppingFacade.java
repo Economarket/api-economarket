@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.edu.ifsp.arq.prss6.apieconomarket.model.dao.ShoppingList;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ShoppingList;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.ShoppingRepository;
 
 @Service
@@ -15,13 +15,13 @@ public class ShoppingFacade {
 	@Autowired
 	private ShoppingRepository repository;
 	
-	public List<ShoppingList> findByUserId(long userId) {
+	public List<ShoppingList> findByUserId(Long userId) {
 		return repository.findByUserId(userId);
 	}
 	
-	public ShoppingList findById(long id) {
+	public ShoppingList findById(Long id) {
 		Optional<ShoppingList> optShoppingList = repository.findById(id);
-		return optShoppingList.orElseThrow();
+		return optShoppingList.get();
 	}
 	
 	public Long saveShoppingList(ShoppingList shoppingList) {
