@@ -33,6 +33,8 @@ public class Product {
 	@Column(nullable = true)
 	private String name;
 	
+	private String searchName;
+	
 	@NotNull
 	private Double price;
 	

@@ -8,5 +8,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-	public List<Product> findByNameLike(String name);
+	public List<Product> findBySearchNameLike(String name);
+	
+	public List<Product> findByMarketsId(Long id);
 }

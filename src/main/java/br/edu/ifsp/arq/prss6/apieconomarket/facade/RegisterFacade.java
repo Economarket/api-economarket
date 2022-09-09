@@ -70,6 +70,10 @@ public class RegisterFacade {
 	}
 
 	public Long saveProduct(Product product) {
+		String prodSearchName = product.getName()
+				.trim()
+				.toLowerCase();
+		product.setSearchName(prodSearchName);
 		return productRepository.save(product).getId();
 	}
 

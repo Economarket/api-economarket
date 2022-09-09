@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
@@ -60,24 +62,24 @@ public class SearchController {
 //	}
 	
 	@GetMapping(EndpointsConstMapping.ProductEP.MAIN)
-	public List<Product> findProducts() {
+	public List<ProductDTO> findProducts() {
 		return facade.findProducts();
 	}
 	
 	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/{id}")
-	public Product findProductById(@PathVariable Long id) {
+	public ProductDTO findProductById(@PathVariable Long id) {
 		return facade.findProductById(id);
 	}
 	
-//	@GetMapping(EndpointsConstMapping.ItemsEP.PRODUCT)
-//	public List<Product> findProductsByName(@PathVariable String name) {
-//		return facade.findProductsByName(name);
-//	}
-//	
-//	@GetMapping(EndpointsConstMapping.ItemsEP.PRODUCT)
-//	public List<Product> findProductsByMarket(@PathVariable Long marketId) {
-//		return facade.findProductsByMarket(marketId);
-//	}
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/name")
+	public List<ProductDTO> findProductsByName(@RequestParam String name) {
+		return facade.findProductsByName(name);
+	}
+	
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/market")
+	public List<ProductDTO> findProductsByMarket(@RequestParam Long id) {
+		return facade.findProductsByMarket(id);
+	}
 //	
 //	@GetMapping(EndpointsConstMapping.ItemsEP.PRODUCT)
 //	public List<Product> findProductsByMarketAndName(@PathVariable Long marketId, String productName) {
