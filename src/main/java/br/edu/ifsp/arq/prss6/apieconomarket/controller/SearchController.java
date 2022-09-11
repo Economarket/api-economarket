@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.SearchFacade;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 
@@ -27,32 +25,32 @@ public class SearchController {
 	private SearchFacade facade;
 	
 	@GetMapping(EndpointsConstMapping.CategoryEP.MAIN)
-	public List<Category> findCategories() {
+	public List<CategoryDTO> findCategories() {
 		return facade.findCategories();
 	}
 	
 	@GetMapping(EndpointsConstMapping.CategoryEP.MAIN + "/{id}")
-	public Category findCategoryById(@PathVariable Long id) {
+	public CategoryDTO findCategoryById(@PathVariable Long id) {
 		return facade.findCategoryById(id);
 	}
 	
 	@GetMapping(EndpointsConstMapping.BrandEP.MAIN)
-	public List<Brand> findBrands() {
+	public List<BrandDTO> findBrands() {
 		return facade.findBrands();
 	}
 		
 	@GetMapping(EndpointsConstMapping.BrandEP.MAIN + "/{id}")
-	public Brand findBrandById(@PathVariable Long id) {
+	public BrandDTO findBrandById(@PathVariable Long id) {
 		return facade.findBrandById(id);
 	}
 	
 	@GetMapping(EndpointsConstMapping.MarketEP.MAIN)
-	public List<Market> findMarkets() {
+	public List<MarketDTO> findMarkets() {
 		return facade.findMarkets();
 	}
 	
 	@GetMapping(EndpointsConstMapping.MarketEP.MAIN + "/{id}")
-	public Market findMarketById(@PathVariable Long id) {
+	public MarketDTO findMarketById(@PathVariable Long id) {
 		return facade.findMarketById(id);
 	}
 	
@@ -92,7 +90,7 @@ public class SearchController {
 	}
 	
 	@GetMapping(EndpointsConstMapping.UserEP.MAIN + "/{id}")
-	public User findUserById(@PathVariable Long id) {
+	public UserDTO findUserById(@PathVariable Long id) {
 		return facade.findUserById(id);
 	}
 }

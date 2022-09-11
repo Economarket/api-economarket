@@ -2,18 +2,17 @@ package br.edu.ifsp.arq.prss6.apieconomarket.facade;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.BrandRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.CategoryRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.MarketRepository;
@@ -45,29 +44,29 @@ public class SearchFacade {
 	private UserRepository userRepository;
 	
 	
-	public List<Category> findCategories() {
-		return categoryRepository.findAll();
+	public List<CategoryDTO> findCategories() {
+		return modelMapperUtil.categoryModelToDTO(categoryRepository.findAll());
 	}
 	
-	public Category findCategoryById(Long id) {
-		return categoryRepository.findById(id).get();
+	public CategoryDTO findCategoryById(Long id) {
+		return modelMapperUtil.categoryModelToDTO(categoryRepository.findById(id).get());
 	}
 	
-	public List<Brand> findBrands() {
-		return brandRepository.findAll();
+	public List<BrandDTO> findBrands() {
+		return modelMapperUtil.brandModelToDTO(brandRepository.findAll());
 	}
 	
-	public Brand findBrandById(Long id) {
-		return brandRepository.findById(id).get();
+	public BrandDTO findBrandById(Long id) {
+		return modelMapperUtil.brandModelToDTO(brandRepository.findById(id).get());
 	}
 
-	public List<Market> findMarkets() {
-		return marketRepository.findAll();
+	public List<MarketDTO> findMarkets() {
+		return modelMapperUtil.marketModelToDTO(marketRepository.findAll());
 	}
 	
-	public Market findMarketById(Long id) {
+	public MarketDTO findMarketById(Long id) {
 		Optional<Market> optMarket = marketRepository.findById(id);
-		return optMarket.orElseThrow();
+		return modelMapperUtil.marketModelToDTO(optMarket.orElseThrow());
 	}
 	
 	public List<Market> findMarketsByName(String name) {
@@ -92,8 +91,9 @@ public class SearchFacade {
 		return modelMapperUtil.userModelToDTO(userRepository.findAll());
 	}
 	
-	public User findUserById(Long id) {
-		return userRepository.findById(id).get();
+	public UserDTO findUserById(Long id) {
+		//modelMapperUtil.userModelToDTO(userRepository.findById(id).get());
+		return modelMapperUtil.userModelToDTO(userRepository.findById(id).get());
 	}
 
 	public List<ProductDTO> findProductsByMarket(Long id) {

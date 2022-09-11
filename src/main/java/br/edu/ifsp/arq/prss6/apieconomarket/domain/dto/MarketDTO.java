@@ -7,5 +7,15 @@ import lombok.Setter;
 @Setter
 public class MarketDTO {
 
+	private String name;
 	
+	private String description;
+	
+	private String logo;
+	
+	private String locatex;
+	
+	private String locatey;
+	
+	private String uuid;
 }
