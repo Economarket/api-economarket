@@ -85,14 +85,4 @@ public class SearchController {
 //	public List<Product> findProductsByMarketAndName(@PathVariable Long marketId, String productName) {
 //		return facade.findProductsByMarketAndName(marketId, productName);
 //	}
-	
-	@GetMapping(EndpointsConstMapping.UserEP.MAIN)
-	public List<UserDTO> findUsers() {
-		return facade.findUsers();
-	}
-	
-	@GetMapping(EndpointsConstMapping.UserEP.MAIN + "/{id}")
-	public User findUserById(@PathVariable Long id) {
-		return facade.findUserById(id);
-	}
 }

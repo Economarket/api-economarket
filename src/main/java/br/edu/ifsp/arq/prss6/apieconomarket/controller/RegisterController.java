@@ -17,7 +17,6 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.RegisterFacade;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 
@@ -90,21 +89,5 @@ public class RegisterController {
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteProduct(@PathVariable Long id) {
 		facade.deleteProduct(id);
-	}
-
-	@PostMapping(EndpointsConstMapping.UserEP.MAIN)
-	public Long saveUser(@Valid @RequestBody User user) {
-		return facade.saveUser(user);
-	}
-
-	@PutMapping(EndpointsConstMapping.UserEP.MAIN)
-	public User updateUser(@Valid @RequestBody User user) {
-		return facade.updateUser(user);
-	}
-
-	@DeleteMapping(EndpointsConstMapping.UserEP.MAIN + "/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public void deleteUser(@PathVariable Long id) {
-		facade.deleteUser(id);
 	}
 }

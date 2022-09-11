@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -62,5 +63,5 @@ public class User {
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "permission_id")
 	)
-	private List<Permission> permissions;
+	private List<Permission> permissions = new ArrayList<>();
 }

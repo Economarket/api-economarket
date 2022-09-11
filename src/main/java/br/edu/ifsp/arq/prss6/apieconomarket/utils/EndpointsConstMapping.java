@@ -2,6 +2,10 @@ package br.edu.ifsp.arq.prss6.apieconomarket.utils;
 
 public class EndpointsConstMapping {
 	
+	public static class LoginEP {
+		public static final String MAIN = "/login";
+	}
+	
 	public class BrandEP {
 		public static final String MAIN = "/brand";				
 	}
@@ -36,5 +40,7 @@ public class EndpointsConstMapping {
 	
 	public class UserEP {
 		public static final String MAIN = "/user";		
+		public static final String BY_ID = "/user/{id}";		
+		public static final String PASSWORD_VALIDATE = "/user/passwordvalidate";		
 	}
 }
