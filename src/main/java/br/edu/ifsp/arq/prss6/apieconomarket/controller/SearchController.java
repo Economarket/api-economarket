@@ -13,7 +13,6 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.SearchFacade;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 
@@ -83,14 +82,5 @@ public class SearchController {
 //	public List<Product> findProductsByMarketAndName(@PathVariable Long marketId, String productName) {
 //		return facade.findProductsByMarketAndName(marketId, productName);
 //	}
-	
-	@GetMapping(EndpointsConstMapping.UserEP.MAIN)
-	public List<UserDTO> findUsers() {
-		return facade.findUsers();
-	}
-	
-	@GetMapping(EndpointsConstMapping.UserEP.MAIN + "/{id}")
-	public UserDTO findUserById(@PathVariable Long id) {
-		return facade.findUserById(id);
-	}
+
 }

@@ -10,14 +10,12 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.BrandRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.CategoryRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.MarketRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.ProductRepository;
-import br.edu.ifsp.arq.prss6.apieconomarket.repository.UserRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.ModelMapperUtil;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
@@ -27,7 +25,6 @@ public class SearchFacade {
 	@Autowired
 	private ModelMapperUtil modelMapperUtil;
 	
-
 	@Autowired
 	private CategoryRepository categoryRepository;
 
@@ -39,9 +36,6 @@ public class SearchFacade {
 
 	@Autowired
 	private ProductRepository productRepository;
-
-	@Autowired
-	private UserRepository userRepository;
 	
 	
 	public List<CategoryDTO> findCategories() {
@@ -85,15 +79,6 @@ public class SearchFacade {
 	public List<ProductDTO> findProductsByName(String name) {
 		return modelMapperUtil.productModelToDTO(
 				productRepository.findBySearchNameLike("%" + UtilsFunc.removeWhiteSpacesIfExists(name) + "%"));
-	}
-	
-	public List<UserDTO> findUsers() {
-		return modelMapperUtil.userModelToDTO(userRepository.findAll());
-	}
-	
-	public UserDTO findUserById(Long id) {
-		//modelMapperUtil.userModelToDTO(userRepository.findById(id).get());
-		return modelMapperUtil.userModelToDTO(userRepository.findById(id).get());
 	}
 
 	public List<ProductDTO> findProductsByMarket(Long id) {

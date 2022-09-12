@@ -29,9 +29,6 @@ public class RegisterFacade {
 	@Autowired
 	private ProductRepository productRepository;
 	
-	@Autowired
-	private UserRepository userRepository;
-	
 
 	public Long saveCategory(Category category) {
 		return categoryRepository.save(category).getId();
@@ -83,17 +80,5 @@ public class RegisterFacade {
 
 	public void deleteProduct(long id) {
 		productRepository.deleteById(id);
-	}
-
-	public Long saveUser(User user) {
-		return userRepository.save(user).getId();
-	}
-
-	public User updateUser(User user) {
-		return userRepository.save(user);
-	}
-
-	public void deleteUser(long id) {
-		userRepository.deleteById(id);
 	}
 }

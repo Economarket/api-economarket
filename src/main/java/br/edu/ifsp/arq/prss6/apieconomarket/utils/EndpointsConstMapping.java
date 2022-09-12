@@ -36,5 +36,7 @@ public class EndpointsConstMapping {
 	
 	public class UserEP {
 		public static final String MAIN = "/user";		
+		public static final String SEARCH_USER = "search/user";		
+		public static final String REGISTER_USER = "register/user";		
 	}
 }
