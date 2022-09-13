@@ -2,12 +2,14 @@ package br.edu.ifsp.arq.prss6.apieconomarket.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -33,23 +35,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
 	}
 	
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
+		JWTAuthFilter jwtAuthFilter = new JWTAuthFilter(authenticationManagerBean());
+		jwtAuthFilter.setFilterProcessesUrl(EndpointsConstMapping.AuthEP.LOGIN);
+		
 		http.csrf().disable()
 			.authorizeRequests()
-			//Configs de cadastro e login
-			.antMatchers(HttpMethod.POST, EndpointsConstMapping.LoginEP.MAIN).permitAll()
+			//Configs de autenticação
+			.antMatchers(EndpointsConstMapping.AuthEP.LOGIN).permitAll()
+			.antMatchers(EndpointsConstMapping.AuthEP.REFRESH_TOKEN).permitAll()
+			
+			//Endpoints abertos
 			.antMatchers(HttpMethod.POST, EndpointsConstMapping.UserEP.MAIN).permitAll()
+			
 			//Configs gerais de ADMIN
 			.antMatchers(HttpMethod.GET, "/**").hasAnyAuthority("ROLE_ADMIN")
 			.antMatchers(HttpMethod.POST, "/**").hasAnyAuthority("ROLE_ADMIN")
 			.antMatchers(HttpMethod.PUT, "/**").hasAnyAuthority("ROLE_ADMIN")
 			.antMatchers(HttpMethod.DELETE, "/**").hasAnyAuthority("ROLE_ADMIN")
+			
 			//TODO: Configurar outras permissões aqui
+			
 			.anyRequest().authenticated()
 		.and()
-			.addFilter(new JWTAuthFilter(authenticationManager()))
-			.addFilter(new JWTValidateFilter(authenticationManager()))
+			.addFilter(jwtAuthFilter)
+			.addFilterBefore(new JWTValidateFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 //		return http.getOrBuild();

@@ -1,16 +1,13 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.security.authorization;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
 public class UserDetail implements UserDetails {
 	
@@ -23,13 +20,8 @@ public class UserDetail implements UserDetails {
 	public UserDetail(Optional<User> user) {
 		this.user = user.orElse(new User());
 		
-		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		
-		authorities = user.orElse(new User()).getPermissions().stream()
-			.map(p -> new SimpleGrantedAuthority("ROLE_".concat(p.getName())))
-			.collect(Collectors.toList());
-		
-		this.authorities = authorities;
+		this.authorities = UtilsFunc.permissionsToAuthoritiesList(
+				user.orElse(new User()).getPermissions());
 	}
 	
 	public static UserDetail create(Optional<User> user) {

@@ -24,7 +24,6 @@ public class UserFacade {
 	@Autowired
 	private ModelMapperUtil modelMapperUtil;
 	
-	//TODO: Passar CRUD do usuário para cá
 	
 	public List<UserDTO> findUsers() {
 		return modelMapperUtil.userModelToDTO(userRepository.findAll());

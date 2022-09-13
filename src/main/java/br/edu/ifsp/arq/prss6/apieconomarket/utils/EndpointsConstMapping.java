@@ -2,8 +2,10 @@ package br.edu.ifsp.arq.prss6.apieconomarket.utils;
 
 public class EndpointsConstMapping {
 	
-	public static class LoginEP {
-		public static final String MAIN = "/login";
+	public static class AuthEP {
+		public static final String MAIN = "/auth";
+		public static final String LOGIN = "/auth/login"; //Endpoint auto-configurado pelo Spring Security
+		public static final String REFRESH_TOKEN = "/token/refresh";				
 	}
 	
 	public class BrandEP {
@@ -40,7 +42,6 @@ public class EndpointsConstMapping {
 	
 	public class UserEP {
 		public static final String MAIN = "/user";		
-		public static final String BY_ID = "/user/{id}";		
-		public static final String PASSWORD_VALIDATE = "/user/passwordvalidate";		
+		public static final String BY_ID = "/{id}";		
 	}
 }

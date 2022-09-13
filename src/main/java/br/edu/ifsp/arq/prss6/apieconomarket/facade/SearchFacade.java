@@ -2,23 +2,19 @@ package br.edu.ifsp.arq.prss6.apieconomarket.facade;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.BrandRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.CategoryRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.MarketRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.ProductRepository;
-import br.edu.ifsp.arq.prss6.apieconomarket.repository.UserRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.ModelMapperUtil;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
@@ -40,9 +36,6 @@ public class SearchFacade {
 
 	@Autowired
 	private ProductRepository productRepository;
-
-	@Autowired
-	private UserRepository userRepository;
 	
 	
 	public List<Category> findCategories() {

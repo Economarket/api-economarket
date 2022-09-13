@@ -1,7 +1,6 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.security;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,25 +15,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTBuilder;
+import br.edu.ifsp.arq.prss6.apieconomarket.config.TokenTypeEnum;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.security.authorization.UserDetail;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
 public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
-	
-	//TODO: Passar para um arquivo de configuração
-	public static final int EXPIRATION_TOKEN = 900000; //Token expira a cada 20 min
-	
-	public static final int EXPIRATION_REFRESH_TOKEN = 1800000; //Token expira a cada 20 min
-	
-	public static final String TOKEN_SECRET = "0e75640d-65d0-4810-adf5-deaee35fbc3c";
 	
 	private final AuthenticationManager authenticationManager;
 	
@@ -54,7 +46,7 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 					user.getEmail(),
 					user.getPassword(),
 					user.getPermissions().stream().map(p -> new SimpleGrantedAuthority(p.getName())).collect(Collectors.toList())
-			)); //TODO: Configurar permissões do usuário
+			));
 			
 		} catch (IOException e) {
 			throw new RuntimeException("Falha ao autenticar usuário", e);
@@ -69,17 +61,11 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 		
 		UserDetail userDetail = (UserDetail) authResult.getPrincipal();
 		
-		String accessToken = JWT.create()
-				.withSubject(userDetail.getUsername())
-				.withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TOKEN))
-				.withClaim("roles", userDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-				.sign(Algorithm.HMAC512(TOKEN_SECRET));
+		String accessToken = JWTBuilder.createAccessToken(userDetail.getUsername(), 
+				UtilsFunc.authoritiesToRoleList(userDetail.getAuthorities()), TokenTypeEnum.ACCESS_TOKEN);
 		
-		String refreshToken = JWT.create()
-				.withSubject(userDetail.getUsername())
-				.withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_REFRESH_TOKEN))
-				.withClaim("roles", userDetail.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-				.sign(Algorithm.HMAC512(TOKEN_SECRET));
+		String refreshToken = JWTBuilder.createAccessToken(userDetail.getUsername(), 
+				UtilsFunc.authoritiesToRoleList(userDetail.getAuthorities()), TokenTypeEnum.REFRESH_TOKEN);
 		
 //		response.setHeader("access_token", accessToken);
 //		response.setHeader("refresh_token", refreshToken);

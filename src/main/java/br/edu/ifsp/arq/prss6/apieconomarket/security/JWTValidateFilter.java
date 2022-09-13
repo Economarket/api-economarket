@@ -1,78 +1,62 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.Claim;
-import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTBuilder;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsCons;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class JWTValidateFilter extends BasicAuthenticationFilter {
-	
-	public static final String HEADER_ATTRIBUTE = "Authorization";
-	
-	public static final String BEARER_ATTRIBUTE_PREFIX = "Bearer ";
 
 	public JWTValidateFilter(AuthenticationManager authenticationManager) {
 		super(authenticationManager);
 	}
 	
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-
-		String attribute = request.getHeader(HEADER_ATTRIBUTE);
-		
-		if(attribute == null || !attribute.startsWith(BEARER_ATTRIBUTE_PREFIX)) {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+		try {
+			String attribute = request.getHeader(UtilsCons.HEADER_ATTRIBUTE);
+			
+			if(attribute == null || !attribute.startsWith(UtilsCons.BEARER_ATTRIBUTE_PREFIX)) {
+				chain.doFilter(request, response);
+				return;
+			}
+			
+			String token = attribute.replace(UtilsCons.BEARER_ATTRIBUTE_PREFIX, "");
+			
+			UsernamePasswordAuthenticationToken authenticationToken = JWTBuilder.getAuthenticationToken(token);
+			
+			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+			
 			chain.doFilter(request, response);
-			return;
 		}
-		
-		String token = attribute.replace(BEARER_ATTRIBUTE_PREFIX, "");
-		
-		UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
-		
-		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-		
-		chain.doFilter(request, response);
-	}
-	
-	private UsernamePasswordAuthenticationToken getAuthenticationToken(String token) {
-		//TODO: Alterar token para arquivo de configuração
-		DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(JWTAuthFilter.TOKEN_SECRET))
-				.build()
-				.verify(token);
-		
-		String user = decodedJWT.getSubject();
-		
-		Collection<? extends GrantedAuthority> authorities;
-		
-		authorities = decodedJWT.getClaim("roles").asList(String.class)
-			.stream()
-			.map(r -> new SimpleGrantedAuthority(r))
-			.collect(Collectors.toList());
-		
-		if(user == null) {
-			return null;
+		catch(Exception e) {
+			log.error("Erro ao realizar login: {}", e.getMessage());
+			response.setHeader("error", e.getMessage());
+			response.setStatus(HttpStatus.FORBIDDEN.value());
+			
+			Map<String, String> error = new HashMap<>();
+			error.put("error_message", e.getMessage());
+			
+			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+			new ObjectMapper().writeValue(response.getOutputStream(), error);
 		}
-		
-		//TODO: Configurar permissões do usuário
-		return new UsernamePasswordAuthenticationToken(user, null, authorities);
 	}
 }
