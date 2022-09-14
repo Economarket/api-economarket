@@ -54,14 +54,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, EndpointsConstMapping.UserEP.MAIN).permitAll()
 			
 			//Configs gerais de ADMIN
-			.antMatchers(HttpMethod.GET, "/**").hasAnyAuthority("ROLE_ADMIN")
-			.antMatchers(HttpMethod.POST, "/**").hasAnyAuthority("ROLE_ADMIN")
-			.antMatchers(HttpMethod.PUT, "/**").hasAnyAuthority("ROLE_ADMIN")
-			.antMatchers(HttpMethod.DELETE, "/**").hasAnyAuthority("ROLE_ADMIN")
+			.antMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.PUT, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.DELETE, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			
 			//TODO: Configurar outras permissões aqui
 			
-			.anyRequest().authenticated()
+//			.anyRequest().denyAll() //DEBUG -> Nega as permissões dos endpoints não configurados
+			.anyRequest().authenticated() 
 		.and()
 			.addFilter(jwtAuthFilter)
 			.addFilterBefore(new JWTValidateFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +20,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTBuilder;
 import br.edu.ifsp.arq.prss6.apieconomarket.config.TokenTypeEnum;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.UserRepository;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsCons;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 import lombok.extern.slf4j.Slf4j;
@@ -44,8 +46,13 @@ public class AuthFacade {
 				
 				Map<String, String> tokens = new HashMap<>();
 				tokens.put("access_token", accessToken);
-				tokens.put("refresh_token", refreshToken);
+//				tokens.put("refresh_token", refreshToken);
 				
+				Cookie cookieRemoved = new Cookie("refreshToken", null);
+				cookieRemoved.setMaxAge(0);
+				cookieRemoved.setPath(EndpointsConstMapping.AuthEP.REFRESH_TOKEN);
+				
+				response.addCookie(cookieRemoved);
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 				new ObjectMapper().writeValue(response.getOutputStream(), tokens);
 			}
