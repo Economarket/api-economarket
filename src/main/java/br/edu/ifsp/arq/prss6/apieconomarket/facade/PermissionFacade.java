@@ -22,19 +22,16 @@ public class PermissionFacade {
 		return repository.findById(id).get();
 	}
 	
-	//TODO: Implementar Salvar Permissão
 	public Long savePermission(Permission permission) {
-		return null;
+		return repository.save(permission).getId();
 	}
 	
-	//TODO: Implementar Atualizar Permissão
 	public Permission updatePermission(Permission permission) {
-		return null;
+		return repository.save(permission);
 	}
 	
-	//TODO: Implementar Excluir Permissão
 	public void deletePermission(long id) {
-		
+		repository.deleteById(id);
 	}
 
 

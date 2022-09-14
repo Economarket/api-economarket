@@ -7,12 +7,10 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.BrandRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.CategoryRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.MarketRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.ProductRepository;
-import br.edu.ifsp.arq.prss6.apieconomarket.repository.UserRepository;
 
 @Service
 public class RegisterFacade {
