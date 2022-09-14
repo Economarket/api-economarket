@@ -31,7 +31,6 @@ public class Brand {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String searchName;
 	

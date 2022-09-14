@@ -77,6 +77,8 @@ public class RegisterController {
 
 	@PostMapping(EndpointsConstMapping.ProductEP.MAIN)
 	public Long saveProduct(@Valid @RequestBody Product product) {
+		//TODO: Linkar o mercado com produto na 'market_with_product'
+		
 		return facade.saveProduct(product);
 	}
 

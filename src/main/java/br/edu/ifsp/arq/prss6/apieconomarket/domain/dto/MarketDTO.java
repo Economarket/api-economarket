@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.domain.dto;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Address;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class MarketDTO {
 
+	private String uuid;
+	
 	private String name;
 	
 	private String description;
@@ -17,5 +20,5 @@ public class MarketDTO {
 	
 	private String locatey;
 	
-	private String uuid;
+	private Address address;
 }

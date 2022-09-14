@@ -44,6 +44,7 @@ public class Address {
 	@NotNull
 	private String state;
 	
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "market_id", referencedColumnName = "id")
 	private Market market;

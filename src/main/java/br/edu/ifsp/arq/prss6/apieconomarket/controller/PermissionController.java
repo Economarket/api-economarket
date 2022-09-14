@@ -48,6 +48,8 @@ public class PermissionController {
 		return facade.updatePermission(permission);
 	}
 	
+	//TODO: Criar endpoint para setar a permissão dos usuários
+	
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.OK)
 	public void deletePermission(@RequestParam long id) {

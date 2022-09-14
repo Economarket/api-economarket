@@ -30,11 +30,13 @@ public class ProductList {
 	
 	private String uuid;
 	
+	@NotNull
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "shopping_list_id")
 	private ShoppingList shoppingList;
 	
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "id")
 	private Product product;

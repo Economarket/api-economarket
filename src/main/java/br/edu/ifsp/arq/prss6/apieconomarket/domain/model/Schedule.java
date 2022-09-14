@@ -37,8 +37,8 @@ public class Schedule {
 	@NotNull
 	private Integer dayOfWeek;
 	
-	@JsonIgnore
 	@NotNull
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "market_id")
 	private Market market;

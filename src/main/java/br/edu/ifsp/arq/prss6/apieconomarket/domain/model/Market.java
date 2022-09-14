@@ -31,7 +31,6 @@ public class Market {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
 	private String uuid;
 	
 	@NotNull
@@ -46,8 +45,8 @@ public class Market {
 	private String description;
 	
 	private String logo;
-	
-	@NotNull
+
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private Address address;

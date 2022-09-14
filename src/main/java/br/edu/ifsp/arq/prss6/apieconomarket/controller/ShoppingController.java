@@ -43,6 +43,8 @@ public class ShoppingController {
 		return facade.saveShoppingList(shoppingList);
 	}
 	
+	//TODO: Criar um endpoint para setar a lista de produtos na ShoppingList
+	
 	@PutMapping
 	public ShoppingList updateShoppingList(@Valid @RequestBody ShoppingList shoppingList) {
 		return facade.updateShoppingList(shoppingList);

@@ -29,8 +29,8 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = true)
+
+	@NotNull
 	private String name;
 	
 	private String searchName;
@@ -51,6 +51,7 @@ public class Product {
 	@NotNull
 	private Integer unity;
 	
+	@NotNull
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "market_with_product",
