@@ -50,10 +50,10 @@ public class User {
 	@Email
 	private String email;
 	
-	private Double experience;
+	private Double experience = 0.0;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<ShoppingList> shoppingLists;
 	
 	@ManyToMany(fetch = FetchType.LAZY)

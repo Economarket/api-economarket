@@ -44,7 +44,7 @@ public class UserController {
 		return facade.saveUser(user);
 	}
 
-	@PutMapping(EndpointsConstMapping.UserEP.MAIN)
+	@PutMapping
 	public User updateUser(@Valid @RequestBody User user) {
 		return facade.updateUser(user);
 	}

@@ -3,6 +3,7 @@ package br.edu.ifsp.arq.prss6.apieconomarket.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
@@ -11,6 +12,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.repository.BrandRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.CategoryRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.MarketRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.ProductRepository;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.ModelMapperUtil;
 
 @Service
 public class RegisterFacade {
@@ -26,6 +28,9 @@ public class RegisterFacade {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private ModelMapperUtil modelMapperUtil;
 	
 
 	public Long saveCategory(Category category) {
@@ -72,8 +77,8 @@ public class RegisterFacade {
 		return productRepository.save(product).getId();
 	}
 
-	public Product updateProduct(Product product) {
-		return productRepository.save(product);
+	public ProductDTO updateProduct(Product product) {
+		return modelMapperUtil.productModelToDTO(productRepository.save(product));
 	}
 
 	public void deleteProduct(long id) {

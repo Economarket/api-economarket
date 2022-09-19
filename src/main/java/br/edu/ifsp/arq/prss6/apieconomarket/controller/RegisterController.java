@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
@@ -77,13 +78,12 @@ public class RegisterController {
 
 	@PostMapping(EndpointsConstMapping.ProductEP.MAIN)
 	public Long saveProduct(@Valid @RequestBody Product product) {
-		//TODO: Linkar o mercado com produto na 'market_with_product'
-		
 		return facade.saveProduct(product);
 	}
 
 	@PutMapping(EndpointsConstMapping.ProductEP.MAIN)
-	public Product updateProduct(@Valid @RequestBody Product product) {
+	public ProductDTO updateProduct(@Valid @RequestBody Product product) {
+		//TODO: validar se já existe
 		return facade.updateProduct(product);
 	}
 
