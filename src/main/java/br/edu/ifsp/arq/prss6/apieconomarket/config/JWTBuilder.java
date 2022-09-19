@@ -23,7 +23,7 @@ public class JWTBuilder {
 				.withSubject(subject)
 				.withExpiresAt(
 						new Date(System.currentTimeMillis() +
-								JWTParametersConfig.getExpirationTime(tokenType)))
+								getExpirationTime(tokenType)))
 				.withClaim(UtilsCons.ROLE_CLAIM_NAME, userRoles)
 				.sign(getAlgorithm());
 	}
@@ -57,5 +57,14 @@ public class JWTBuilder {
 		}
 		
 		return new UsernamePasswordAuthenticationToken(user, null, authorities);
+	}
+	
+	private static int getExpirationTime(TokenTypeEnum tokenType) {
+		if(tokenType == TokenTypeEnum.REFRESH_TOKEN) {
+			return JWTParametersConfig.ACCESS_TOKEN_EXPIRATION;
+		}
+		
+		//Default
+		return JWTParametersConfig.REFRESH_TOKEN_EXPIRATION;
 	}
 }

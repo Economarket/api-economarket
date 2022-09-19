@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//TODO: Configurar outras permissões aqui
 			
 //			.anyRequest().denyAll() //DEBUG -> Nega as permissões dos endpoints não configurados
-			.anyRequest().authenticated() 
+			.anyRequest().hasAuthority("ROLE_ADMIN") 
 		.and()
 			.addFilter(jwtAuthFilter)
 			.addFilterBefore(new JWTValidateFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
