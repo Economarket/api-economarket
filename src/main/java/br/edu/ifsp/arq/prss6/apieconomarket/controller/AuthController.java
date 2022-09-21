@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,5 +24,10 @@ public class AuthController {
 	@GetMapping(EndpointsConstMapping.AuthEP.REFRESH_TOKEN)
 	public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		authFacade.refreshToken(request, response);
+	}
+	
+	@PostMapping(EndpointsConstMapping.AuthEP.LOGOUT)
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		authFacade.logout(request, response);
 	}
 }

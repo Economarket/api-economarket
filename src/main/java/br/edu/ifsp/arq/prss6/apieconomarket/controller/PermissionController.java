@@ -33,7 +33,7 @@ public class PermissionController {
 		return facade.getPermissions();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(EndpointsConstMapping.PermissionEP.BY_ID)
 	public Permission getPermissionById(@PathVariable Long id) {
 		return facade.getPermissionById(id);
 	}
@@ -47,12 +47,10 @@ public class PermissionController {
 	public Permission updatePermission(@Valid @RequestBody Permission permission) {
 		return facade.updatePermission(permission);
 	}
-	
-	//TODO: Criar endpoint para setar a permissão dos usuários
-	
-	@DeleteMapping
+		
+	@DeleteMapping(EndpointsConstMapping.PermissionEP.BY_ID)
 	@ResponseStatus(HttpStatus.OK)
-	public void deletePermission(@RequestParam long id) {
+	public void deletePermission(@PathVariable Long id) {
 		facade.deletePermission(id);
 	}
 }

@@ -5,6 +5,7 @@ public class EndpointsConstMapping {
 	public static class AuthEP {
 		public static final String MAIN = "/auth";
 		public static final String LOGIN = "/auth/login"; //Endpoint auto-configurado pelo Spring Security
+		public static final String LOGOUT = "/logout";
 		public static final String REFRESH_TOKEN = "/token/refresh";				
 	}
 	
@@ -22,6 +23,7 @@ public class EndpointsConstMapping {
 	
 	public class PermissionEP {
 		public static final String MAIN = "/permission";
+		public static final String BY_ID = "/{id}";
 	}
 	
 	public class ProductEP {

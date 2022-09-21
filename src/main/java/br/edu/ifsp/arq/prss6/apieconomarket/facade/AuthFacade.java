@@ -65,4 +65,46 @@ public class AuthFacade {
 			throw new RuntimeException("Refresh token inválido ou não existe");
 		}
 	}
+
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String attribute = request.getHeader(UtilsCons.HEADER_ATTRIBUTE);
+		if(attribute != null && attribute.startsWith(UtilsCons.BEARER_ATTRIBUTE_PREFIX)) {
+			try {
+				String refreshToken = attribute.replace(UtilsCons.BEARER_ATTRIBUTE_PREFIX, "");
+				
+				DecodedJWT decodedJWT = JWTBuilder.getDecodedJWT(refreshToken);
+				User user = userRepository.findByEmail(decodedJWT.getSubject()).orElse(new User());
+				
+				String accessToken = JWTBuilder.createAccessToken(user.getEmail(), 
+						UtilsFunc.permissionsToRoleList(user.getPermissions()), TokenTypeEnum.ACCESS_TOKEN);
+				
+				Map<String, String> tokens = new HashMap<>();
+				tokens.put("access_token", accessToken);
+				
+				//TODO: Invalidar RefreshToken ou excluir
+				/* Uma idéia é armazenar o token no banco junto com
+				 * o usuário a qual ele pertence, e controlar a validade
+				 * dele. É necessário garantir que caso o usuário realize logout
+				 * o token não possa mais ser usado por ninguém
+				 * */
+				
+				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+				new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+			}
+			catch(Exception e) {
+				log.error("Erro ao realizar login: {}", e.getMessage());
+				response.setHeader("error", e.getMessage());
+				response.setStatus(HttpStatus.FORBIDDEN.value());
+				
+				Map<String, String> error = new HashMap<>();
+				error.put("error_message", e.getMessage());
+				
+				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+				new ObjectMapper().writeValue(response.getOutputStream(), error);
+			}
+		}
+		else {
+			throw new RuntimeException("Refresh token inválido ou não existe");
+		}
+	}
 }

@@ -53,14 +53,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//Endpoints abertos
 			.antMatchers(HttpMethod.POST, EndpointsConstMapping.UserEP.MAIN).permitAll()
 			
-			//Configs gerais de ADMIN
+			//Configs gerais
 			.antMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			.antMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			.antMatchers(HttpMethod.PUT, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			.antMatchers(HttpMethod.DELETE, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			
-			//TODO: Configurar outras permissões aqui
-			
+			.antMatchers(HttpMethod.GET, "/permission/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.POST, "/permission/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.PUT, "/permission/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.DELETE, "/permission/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+						
 //			.anyRequest().denyAll() //DEBUG -> Nega as permissões dos endpoints não configurados
 			.anyRequest().hasAuthority("ROLE_ADMIN") 
 		.and()
