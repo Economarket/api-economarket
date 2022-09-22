@@ -14,7 +14,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Permission;
 public class UtilsFunc {
 
 	public static boolean isBlankOrEmpty(String value) {
-		return value == null || value.isBlank();
+		return value == null || value.trim().length() == 0;
 	}
 	
 	public static String removeWhiteSpacesIfExists(String value) {

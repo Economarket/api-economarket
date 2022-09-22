@@ -47,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 			.authorizeRequests()
 			//Configs de autenticação
+			.antMatchers(HttpMethod.GET, "/").permitAll()
 			.antMatchers(EndpointsConstMapping.AuthEP.LOGIN).permitAll()
 			.antMatchers(EndpointsConstMapping.AuthEP.REFRESH_TOKEN).permitAll()
 			

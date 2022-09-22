@@ -26,7 +26,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Optional<User> user = repository.findByEmail(email);
 		
-		if(user.isEmpty()) {
+		if(user == null) {
 			throw new UsernameNotFoundException("Usuário com email [" + email + "] não encontrado");
 		}
 		

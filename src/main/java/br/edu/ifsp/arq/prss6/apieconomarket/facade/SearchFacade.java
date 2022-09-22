@@ -60,7 +60,7 @@ public class SearchFacade {
 	
 	public MarketDTO findMarketById(Long id) {
 		Optional<Market> optMarket = marketRepository.findById(id);
-		return modelMapperUtil.marketModelToDTO(optMarket.orElseThrow());
+		return modelMapperUtil.marketModelToDTO(optMarket.orElse(new Market()));
 	}
 	
 	public List<Market> findMarketsByName(String name) {
