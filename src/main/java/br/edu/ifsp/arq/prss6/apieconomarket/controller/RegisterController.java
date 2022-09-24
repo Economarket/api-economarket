@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.controller;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,11 +62,13 @@ public class RegisterController {
 	}
 
 	@PostMapping(EndpointsConstMapping.MarketEP.MAIN)
+	@Transactional
 	public Long saveMarket(@Valid @RequestBody Market market) {
 		return facade.saveMarket(market);
 	}
 
 	@PutMapping(EndpointsConstMapping.MarketEP.MAIN)
+	@Transactional
 	public Market updateMarket(@Valid @RequestBody Market market) {
 		return facade.updateMarket(market);
 	}

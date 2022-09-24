@@ -1,6 +1,7 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class Market {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String uuid;
+	private String uuid = UUID.randomUUID().toString();
 	
 	@NotNull
 	private String locateX;
@@ -46,12 +47,11 @@ public class Market {
 	
 	private String logo;
 
-	@JsonIgnore
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private Address address;
 	
-	@OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "market", cascade = CascadeType.ALL)
 	private List<Schedule> schedules;
 	
 	@JsonIgnore

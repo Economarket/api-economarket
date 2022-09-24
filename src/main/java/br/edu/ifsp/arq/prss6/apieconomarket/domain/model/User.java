@@ -2,6 +2,7 @@ package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -37,7 +38,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String uuid;
+	private String uuid = UUID.randomUUID().toString();
 	
 	@NotNull
 	private String name;

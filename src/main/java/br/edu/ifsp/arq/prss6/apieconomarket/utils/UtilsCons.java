@@ -10,5 +10,7 @@ public class UtilsCons {
 	
 	public static final String ROLE_CLAIM_NAME = "roles";
 	
+	public static final String WHITE_SPACES_REGEX = "\\s";
+	
 	//TODO: Passar constantes da aplicação para cá
 }

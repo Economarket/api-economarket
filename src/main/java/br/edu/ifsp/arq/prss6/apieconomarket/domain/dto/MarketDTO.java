@@ -1,6 +1,9 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.domain.dto;
 
+import java.util.List;
+
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Address;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Schedule;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,4 +24,6 @@ public class MarketDTO {
 	private String locatey;
 	
 	private Address address;
+	
+	private List<Schedule> schedules;
 }

@@ -17,6 +17,15 @@ public class UtilsFunc {
 		return value == null || value.isBlank();
 	}
 	
+	public static String deleteAllWhiteSpaces(String value) {
+		String newValue = 
+				value.replaceAll(UtilsCons.WHITE_SPACES_REGEX, "")
+				.trim()
+				.toLowerCase();
+
+		return newValue;
+	}
+	
 	public static String removeWhiteSpacesIfExists(String value) {
 		if(UtilsFunc.isBlankOrEmpty(value)) {
 			return null;

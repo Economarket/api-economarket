@@ -54,6 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, EndpointsConstMapping.UserEP.MAIN).permitAll()
 			
 			//Configs gerais
+			.antMatchers(HttpMethod.GET, "/search/market").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.GET, "/search/product").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			
 			.antMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			.antMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			.antMatchers(HttpMethod.PUT, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
@@ -63,6 +66,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/permission/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			.antMatchers(HttpMethod.PUT, "/permission/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			.antMatchers(HttpMethod.DELETE, "/permission/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			
+			.antMatchers(HttpMethod.POST, "/register/market").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.PUT, "/register/market").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.DELETE, "/register/market").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 						
 //			.anyRequest().denyAll() //DEBUG -> Nega as permissões dos endpoints não configurados
 			.anyRequest().hasAuthority("ROLE_ADMIN") 
