@@ -2,6 +2,7 @@ package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -37,7 +39,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String uuid;
+	private String uuid = UUID.randomUUID().toString();
 	
 	@NotNull
 	private String name;
@@ -63,4 +65,8 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "permission_id")
 	)
 	private List<Permission> permissions = new ArrayList<>();
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	private Address address;
 }

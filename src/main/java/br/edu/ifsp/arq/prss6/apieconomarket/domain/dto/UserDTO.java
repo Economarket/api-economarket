@@ -1,8 +1,11 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.domain.dto;
 
-import lombok.Data;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Address;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserDTO {
 
 	private String uuid;
@@ -12,4 +15,6 @@ public class UserDTO {
 	private String email;
 	
 	private Double experience;
+	
+	private Address address;
 }

@@ -1,5 +1,7 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +30,7 @@ public class ProductList {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String uuid;
+	private String uuid = UUID.randomUUID().toString();
 	
 	@NotNull
 	@JsonIgnore
