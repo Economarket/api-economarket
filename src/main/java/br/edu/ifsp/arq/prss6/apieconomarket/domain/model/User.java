@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -46,6 +47,7 @@ public class User {
 
 	@NotNull
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //Propriedade é apenas escrita, não retorna no GET
+	@Size(min = 8)
 	private String password;
 	
 	@NotNull
@@ -69,4 +71,8 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private Address address;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<RefreshToken> tokens;
 }

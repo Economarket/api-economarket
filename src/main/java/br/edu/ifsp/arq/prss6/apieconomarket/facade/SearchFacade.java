@@ -78,7 +78,7 @@ public class SearchFacade {
 	
 	public List<ProductDTO> findProductsByName(String name) {
 		return modelMapperUtil.productModelToDTO(
-				productRepository.findBySearchNameLike("%" + UtilsFunc.removeWhiteSpacesIfExists(name) + "%"));
+				productRepository.findBySearchNameLike("%" + UtilsFunc.treatSearchName(name) + "%"));
 	}
 
 	public List<ProductDTO> findProductsByMarket(Long id) {

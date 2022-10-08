@@ -19,14 +19,19 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTBuilder;
+import br.edu.ifsp.arq.prss6.apieconomarket.service.RefreshTokenService;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsCons;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JWTValidateFilter extends BasicAuthenticationFilter {
+	
+	private RefreshTokenService refreshTokenService;
 
-	public JWTValidateFilter(AuthenticationManager authenticationManager) {
+	public JWTValidateFilter(AuthenticationManager authenticationManager, RefreshTokenService refreshTokenService) {
 		super(authenticationManager);
+		this.refreshTokenService = refreshTokenService;
 	}
 	
 	@Override
@@ -40,6 +45,15 @@ public class JWTValidateFilter extends BasicAuthenticationFilter {
 			}
 			
 			String token = attribute.replace(UtilsCons.BEARER_ATTRIBUTE_PREFIX, "");
+			
+			String requestPath = request.getServletPath();
+			//TODO: Fazer uma função para comparar string na UtilsFunc
+//			if(!requestPath.contentEquals(EndpointsConstMapping.AuthEP.MAIN + EndpointsConstMapping.AuthEP.LOGOUT)) {
+				
+				String user = JWTBuilder.getDecodedJWT(token).getSubject();
+				String userAgent = JWTBuilder.getUserAgent(request);
+				refreshTokenService.findRefreshTokenByUserAndUserAgent(user, userAgent);
+//			}
 			
 			UsernamePasswordAuthenticationToken authenticationToken = JWTBuilder.getAuthenticationToken(token);
 			

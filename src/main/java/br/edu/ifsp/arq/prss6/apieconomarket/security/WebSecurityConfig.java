@@ -15,6 +15,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.security.service.UserDetailServiceImpl;
+import br.edu.ifsp.arq.prss6.apieconomarket.service.RefreshTokenService;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 
 @SuppressWarnings("deprecation")
@@ -25,9 +26,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private final PasswordEncoder passwordEncoder;
 	
-	public WebSecurityConfig(UserDetailServiceImpl userService, PasswordEncoder passwordEncoder) {
+	private final RefreshTokenService refreshTokenService;
+	
+	public WebSecurityConfig(UserDetailServiceImpl userService, PasswordEncoder passwordEncoder, 
+			RefreshTokenService refreshTokenService) {
+		
 		this.userService = userService;
 		this.passwordEncoder = passwordEncoder;
+		this.refreshTokenService = refreshTokenService;
 	}
 	
 	@Override
@@ -41,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		JWTAuthFilter jwtAuthFilter = new JWTAuthFilter(authenticationManagerBean());
+		JWTAuthFilter jwtAuthFilter = new JWTAuthFilter(authenticationManagerBean(), refreshTokenService);
 		jwtAuthFilter.setFilterProcessesUrl(EndpointsConstMapping.AuthEP.LOGIN);
 		
 		http.csrf().disable()
@@ -75,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().hasAuthority("ROLE_ADMIN") 
 		.and()
 			.addFilter(jwtAuthFilter)
-			.addFilterBefore(new JWTValidateFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(new JWTValidateFilter(authenticationManager(), refreshTokenService), UsernamePasswordAuthenticationFilter.class)
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 //		return http.getOrBuild();
