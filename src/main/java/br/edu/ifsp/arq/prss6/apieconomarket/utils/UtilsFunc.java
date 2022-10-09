@@ -41,7 +41,7 @@ public class UtilsFunc {
 		
 		String processedName = "";
 		for(String s : Arrays.asList(searchName.split(" "))) {
-			processedName = processedName.concat(s);
+			processedName = processedName.concat(s.toLowerCase());
 		}
 		
 		return processedName;
