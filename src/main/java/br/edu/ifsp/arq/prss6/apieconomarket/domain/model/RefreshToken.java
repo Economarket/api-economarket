@@ -1,5 +1,7 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,11 +27,15 @@ public class RefreshToken {
 
 	private String token;
 	
-	public RefreshToken() { }
+	private LocalDateTime dateTime;
 	
-	public RefreshToken(User user, String userAgent, String refreshToken) {
+	public RefreshToken() {
+	}
+	
+	public RefreshToken(User user, String userAgent, String refreshToken, LocalDateTime dateTime) {
 		this.user = user;
 		this.userAgent = userAgent;
 		this.token = refreshToken;
+		this.dateTime = dateTime;
 	}
 }

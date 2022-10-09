@@ -1,6 +1,7 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.security;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -84,7 +85,8 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 		
 		refreshTokenService.registerRefreshTokenOnDatabase(user, 
 				userAgent, 
-				refreshToken);
+				refreshToken,
+				LocalDateTime.now());
 		
 		Cookie cookie = new Cookie("refreshToken", refreshToken);
 		cookie.setPath(EndpointsConstMapping.AuthEP.LOGIN);

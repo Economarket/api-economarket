@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,7 +34,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor	
 @Entity
-@Table(name = "User_tb")
+@Table(name = "User_tb", uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) })
 public class User {
 
 	@Id

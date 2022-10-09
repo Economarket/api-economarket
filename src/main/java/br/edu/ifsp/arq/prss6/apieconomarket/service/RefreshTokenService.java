@@ -1,5 +1,7 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.service;
 
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +26,8 @@ public class RefreshTokenService {
 	private UserRepository userRepository;
 	
 	@Transactional
-	public void registerRefreshTokenOnDatabase(User user, String userAgent, String refreshToken) {
-		refreshTokenRepository.save(new RefreshToken(user, userAgent, refreshToken));
+	public void registerRefreshTokenOnDatabase(User user, String userAgent, String refreshToken, LocalDateTime dateTime) {
+		refreshTokenRepository.save(new RefreshToken(user, userAgent, refreshToken, dateTime));
 	}
 	
 	@Transactional
@@ -50,5 +52,9 @@ public class RefreshTokenService {
 		}
 		
 		return optRefreshToken;
+	}
+	
+	public List<RefreshToken> findAll() {
+		return refreshTokenRepository.findAll();
 	}
 }
