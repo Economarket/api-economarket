@@ -27,6 +27,10 @@ public class UserDetail implements UserDetails {
 	public static UserDetail create(Optional<User> user) {
 		return new UserDetail(user);
 	}
+	
+	public Long getId() {
+		return user.getId();
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

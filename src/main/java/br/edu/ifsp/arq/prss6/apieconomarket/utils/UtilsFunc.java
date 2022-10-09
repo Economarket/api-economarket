@@ -12,6 +12,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Permission;
 
 public class UtilsFunc {
+	
+	public static boolean stringEquals(String source, String target) {
+		return source.contentEquals(target);
+	}
+	
+	public static boolean stringEqualsIgnoreCase(String source, String target) {
+		return source.equalsIgnoreCase(target);
+	}
 
 	public static boolean isBlankOrEmpty(String value) {
 		return value == null || value.trim().length() == 0;
@@ -26,14 +34,14 @@ public class UtilsFunc {
 		return newValue;
 	}
 	
-	public static String removeWhiteSpacesIfExists(String value) {
-		if(UtilsFunc.isBlankOrEmpty(value)) {
+	public static String treatSearchName(String searchName) {
+		if(UtilsFunc.isBlankOrEmpty(searchName)) {
 			return null;
 		}
 		
 		String processedName = "";
-		for(String s : Arrays.asList(value.split(" "))) {
-			processedName = processedName.concat(s);
+		for(String s : Arrays.asList(searchName.split(" "))) {
+			processedName = processedName.concat(s.toLowerCase());
 		}
 		
 		return processedName;

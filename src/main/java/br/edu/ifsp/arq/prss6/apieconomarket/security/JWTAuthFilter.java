@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -25,6 +26,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTBuilder;
 import br.edu.ifsp.arq.prss6.apieconomarket.config.TokenTypeEnum;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.security.authorization.UserDetail;
+import br.edu.ifsp.arq.prss6.apieconomarket.service.RefreshTokenService;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
@@ -32,8 +34,11 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 	
 	private final AuthenticationManager authenticationManager;
 	
-	public JWTAuthFilter(AuthenticationManager authenticationManager) {
+	private final RefreshTokenService refreshTokenService;
+	
+	public JWTAuthFilter(AuthenticationManager authenticationManager, RefreshTokenService refreshTokenService) {
 		this.authenticationManager = authenticationManager;
+		this.refreshTokenService = refreshTokenService;
 	}
 	
 	//Realiza a autenticação de usuário
@@ -50,7 +55,7 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 					user.getPermissions().stream().map(p -> new SimpleGrantedAuthority(p.getName())).collect(Collectors.toList())
 			));
 			
-		} catch (IOException e) {
+		} catch (IOException | EntityNotFoundException e) {
 			throw new RuntimeException("Falha ao autenticar usuário", e);
 		}
 	}
@@ -62,19 +67,24 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 			Authentication authResult) throws IOException, ServletException {
 		
 		UserDetail userDetail = (UserDetail) authResult.getPrincipal();
-		
+				
 		String accessToken = JWTBuilder.createAccessToken(userDetail.getUsername(), 
 				UtilsFunc.authoritiesToRoleList(userDetail.getAuthorities()), TokenTypeEnum.ACCESS_TOKEN);
 		
 		String refreshToken = JWTBuilder.createAccessToken(userDetail.getUsername(), 
 				UtilsFunc.authoritiesToRoleList(userDetail.getAuthorities()), TokenTypeEnum.REFRESH_TOKEN);
 		
-//		response.setHeader("access_token", accessToken);
-//		response.setHeader("refresh_token", refreshToken);
-		
 		Map<String, String> tokens = new HashMap<>();
 		tokens.put("access_token", accessToken);
-		//tokens.put("refresh_token", refreshToken);
+		
+		User user = new User();
+		user.setId(userDetail.getId());
+		
+		String userAgent = JWTBuilder.getUserAgent(request);
+		
+		refreshTokenService.registerRefreshTokenOnDatabase(user, 
+				userAgent, 
+				refreshToken);
 		
 		Cookie cookie = new Cookie("refreshToken", refreshToken);
 		cookie.setPath(EndpointsConstMapping.AuthEP.LOGIN);

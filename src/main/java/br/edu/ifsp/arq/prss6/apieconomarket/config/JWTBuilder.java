@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +21,7 @@ public class JWTBuilder {
 
 	public static String createAccessToken(String subject, List<String> userRoles, 
 			TokenTypeEnum tokenType) {
+		
 		return JWT.create()
 				.withSubject(subject)
 				.withExpiresAt(
@@ -59,12 +62,16 @@ public class JWTBuilder {
 		return new UsernamePasswordAuthenticationToken(user, null, authorities);
 	}
 	
+	public static String getUserAgent(HttpServletRequest request) {
+		return request.getHeader(UtilsCons.USER_AGENT_HEADER);
+	}
+	
 	private static int getExpirationTime(TokenTypeEnum tokenType) {
 		if(tokenType == TokenTypeEnum.REFRESH_TOKEN) {
-			return JWTParametersConfig.ACCESS_TOKEN_EXPIRATION;
+			return JWTParametersConfig.REFRESH_TOKEN_EXPIRATION;
 		}
 		
 		//Default
-		return JWTParametersConfig.REFRESH_TOKEN_EXPIRATION;
+		return JWTParametersConfig.ACCESS_TOKEN_EXPIRATION;
 	}
 }

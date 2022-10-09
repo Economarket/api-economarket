@@ -50,10 +50,16 @@ public class RegisterFacade {
 	
 
 	public Long saveCategory(Category category) {
+		String name = category.getName();
+		category.setSearchName(UtilsFunc.treatSearchName(name));
+		
 		return categoryRepository.save(category).getId();
 	}
 
 	public Category updateCategory(Category category) {
+		String name = category.getName();
+		category.setSearchName(UtilsFunc.treatSearchName(name));
+		
 		return categoryRepository.save(category);
 	}
 
@@ -62,10 +68,16 @@ public class RegisterFacade {
 	}
 
 	public Long saveBrand(Brand brand) {
+		String brandName = brand.getBrandName();
+		brand.setSearchName(UtilsFunc.treatSearchName(brandName));
+		
 		return brandRepository.save(brand).getId();
 	}
 
 	public Brand updateBrand(Brand brand) {
+		String brandName = brand.getBrandName();
+		brand.setSearchName(UtilsFunc.treatSearchName(brandName));
+		
 		return brandRepository.save(brand);
 	}
 
