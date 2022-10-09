@@ -14,5 +14,9 @@ public class UtilsCons {
 	
 	public static final String WHITE_SPACES_REGEX = "\\s";
 	
+	public static final Integer REFRESH_TO_MINUTES = UtilsFunc.refreshToMinutes();
+	
+	public static final Integer REFRESH_TO_SECONDS = UtilsFunc.refreshToSeconds();
+	
 	//TODO: Passar constantes da aplicação para cá
 }

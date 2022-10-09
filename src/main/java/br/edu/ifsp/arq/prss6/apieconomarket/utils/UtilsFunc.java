@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTParametersConfig;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Permission;
 
 public class UtilsFunc {
@@ -85,5 +86,13 @@ public class UtilsFunc {
 	    double dist = earthRadius * c;
 	 
 	    return dist * 1000;
+	}
+	
+	public static Integer refreshToSeconds() {
+		return JWTParametersConfig.REFRESH_TOKEN_EXPIRATION / 1000;
+	}
+	
+	public static Integer refreshToMinutes() {
+		return refreshToSeconds()/60;
 	}
 }
