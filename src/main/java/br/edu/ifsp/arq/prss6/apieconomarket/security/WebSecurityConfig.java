@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		jwtAuthFilter.setFilterProcessesUrl(EndpointsConstMapping.AuthEP.LOGIN);
 		
 		http.csrf().disable()
+			.cors().and()
 			.authorizeRequests()
 			//Configs de autenticação
 			.antMatchers(HttpMethod.GET, "/").permitAll()
