@@ -23,6 +23,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -55,12 +56,14 @@ public class User {
 	@Email
 	private String email;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	private Double experience = 0.0;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<ShoppingList> shoppingLists;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "user_permission",
@@ -73,6 +76,7 @@ public class User {
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private Address address;
 	
+	@JsonProperty(access = Access.READ_ONLY)
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<RefreshToken> tokens;

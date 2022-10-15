@@ -4,6 +4,8 @@ public class UtilsCons {
 
 	public static final String BEARER_ATTRIBUTE_PREFIX = "Bearer ";
 	
+	public static final String CEP_REGEX = "^(([0-9]{2}\\.[0-9]{3}-[0-9]{3})|([0-9]{2}[0-9]{3}-[0-9]{3})|([0-9]{8}))$";
+	
 	public static final String HEADER_ATTRIBUTE = "Authorization";
 	
 	public static final String ROLE_HEADER = "ROLE_";

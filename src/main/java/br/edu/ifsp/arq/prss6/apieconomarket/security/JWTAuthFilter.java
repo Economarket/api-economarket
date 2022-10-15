@@ -75,8 +75,9 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 		String refreshToken = JWTBuilder.createAccessToken(userDetail.getUsername(), 
 				UtilsFunc.authoritiesToRoleList(userDetail.getAuthorities()), TokenTypeEnum.REFRESH_TOKEN);
 		
-		Map<String, String> tokens = new HashMap<>();
-		tokens.put("access_token", accessToken);
+		Map<String, String> loginResponse = new HashMap<>();
+		loginResponse.put("user_id", userDetail.getId().toString());
+		loginResponse.put("access_token", accessToken);
 		
 		User user = new User();
 		user.setId(userDetail.getId());
@@ -93,6 +94,6 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 		
 		response.addCookie(cookie);
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-		new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+		new ObjectMapper().writeValue(response.getOutputStream(), loginResponse);
 	}
 }
