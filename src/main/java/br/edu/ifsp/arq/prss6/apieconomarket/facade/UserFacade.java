@@ -1,9 +1,10 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.facade;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,8 @@ public class UserFacade {
 	@Autowired
 	private ModelMapperUtil modelMapperUtil;
 	
-	public List<UserDTO> findUsers() {
-		return modelMapperUtil.userModelToDTO(userRepository.findAll());
+	public Page<UserDTO> findUsers(Pageable pagination) {
+		return modelMapperUtil.userModelToDTO(userRepository.findAll(pagination));
 	}
 	
 	public UserDTO findUserById(Long id) {
