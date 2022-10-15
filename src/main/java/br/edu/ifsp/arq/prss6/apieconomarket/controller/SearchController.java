@@ -73,9 +73,14 @@ public class SearchController {
 		return facade.findProductsByName(name);
 	}
 	
-	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/market")
-	public List<ProductDTO> findProductsByMarket(@RequestParam Long id) {
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/market" + "/{id}")
+	public List<ProductDTO> findProductsByMarket(@PathVariable Long id) {
 		return facade.findProductsByMarket(id);
+	}
+	
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/category" + "/{id}")
+	public List<ProductDTO> findProductsByCategory(@PathVariable Long id) {
+		return facade.findProductsByCategory(id);
 	}
 	
 //	@GetMapping(EndpointsConstMapping.ItemsEP.PRODUCT)

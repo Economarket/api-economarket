@@ -90,4 +90,8 @@ public class SearchFacade {
 		//marketWithProductRepository.findByMarketIdAndProductName(marketId, productName);
 		return null;
 	}
+	
+	public List<ProductDTO> findProductsByCategory (Long id){
+		return modelMapperUtil.productModelToDTO(productRepository.findByCategoryId(id));
+	}
 }

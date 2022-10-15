@@ -48,7 +48,7 @@ public class Product {
 	private Category category;
 	
 	@NotNull
-	private Integer unity;
+	private String unity;
 	
 	@NotNull
 	@ManyToMany(fetch = FetchType.LAZY)
