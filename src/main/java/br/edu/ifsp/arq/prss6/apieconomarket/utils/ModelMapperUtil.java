@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
@@ -31,6 +32,10 @@ public class ModelMapperUtil {
 				.collect(Collectors.toList());
 	}
 	
+	public Page<UserDTO> userModelToDTO(Page<User> pagedUsers) {
+		return pagedUsers.map(u -> userModelToDTO(u));
+	}
+	
 	public UserDTO userModelToDTO(User user) {
 		return modelMapper.map(user, UserDTO.class);
 	}
@@ -40,6 +45,10 @@ public class ModelMapperUtil {
 				.stream()
 				.map(p -> modelMapper.map(p, ProductDTO.class))
 				.collect(Collectors.toList());
+	}
+	
+	public Page<ProductDTO> productModelToDTO(Page<Product> pagedProducts) {
+		return pagedProducts.map(p -> productModelToDTO(p));
 	}
 	
 	public ProductDTO productModelToDTO(Product product) {
@@ -55,6 +64,10 @@ public class ModelMapperUtil {
 				.stream()
 				.map(p -> modelMapper.map(p, MarketDTO.class))
 				.collect(Collectors.toList());
+	}
+	
+	public Page<MarketDTO> marketModelToDTO(Page<Market> pagedMarkets) {
+		return pagedMarkets.map(m -> marketModelToDTO(m));
 	}
 	
 	public List<CategoryDTO> categoryModelToDTO(List<Category> categorys) {
@@ -73,6 +86,10 @@ public class ModelMapperUtil {
 				.stream()
 				.map(p -> modelMapper.map(p, BrandDTO.class))
 				.collect(Collectors.toList());
+	}
+	
+	public Page<BrandDTO> brandModelToDTO(Page<Brand> pagedBrands) {
+		return pagedBrands.map(b -> brandModelToDTO(b));
 	}
 	
 	public BrandDTO brandModelToDTO(Brand brand) {

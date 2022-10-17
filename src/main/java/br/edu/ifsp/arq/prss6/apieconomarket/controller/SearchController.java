@@ -3,6 +3,8 @@ package br.edu.ifsp.arq.prss6.apieconomarket.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +36,8 @@ public class SearchController {
 	}
 	
 	@GetMapping(EndpointsConstMapping.BrandEP.MAIN)
-	public List<BrandDTO> findBrands() {
-		return facade.findBrands();
+	public Page<BrandDTO> findBrands(Pageable pagination) {
+		return facade.findBrands(pagination);
 	}
 		
 	@GetMapping(EndpointsConstMapping.BrandEP.MAIN + "/{id}")
@@ -44,8 +46,8 @@ public class SearchController {
 	}
 	
 	@GetMapping(EndpointsConstMapping.MarketEP.MAIN)
-	public List<MarketDTO> findMarkets() {
-		return facade.findMarkets();
+	public Page<MarketDTO> findMarkets(Pageable pagination) {
+		return facade.findMarkets(pagination);
 	}
 	
 	@GetMapping(EndpointsConstMapping.MarketEP.MAIN + "/{id}")
@@ -59,8 +61,8 @@ public class SearchController {
 //	}
 	
 	@GetMapping(EndpointsConstMapping.ProductEP.MAIN)
-	public List<ProductDTO> findProducts() {
-		return facade.findProducts();
+	public Page<ProductDTO> findProducts(Pageable pagination) {
+		return facade.findProducts(pagination);
 	}
 	
 	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/{id}")
@@ -69,13 +71,18 @@ public class SearchController {
 	}
 	
 	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/name")
-	public List<ProductDTO> findProductsByName(@RequestParam String name) {
-		return facade.findProductsByName(name);
+	public Page<ProductDTO> findProductsByName(@RequestParam String name, Pageable pagination) {
+		return facade.findProductsByName(name, pagination);
 	}
 	
-	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/market")
-	public List<ProductDTO> findProductsByMarket(@RequestParam Long id) {
-		return facade.findProductsByMarket(id);
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/market" + "/{id}")
+	public Page<ProductDTO> findProductsByMarket(@PathVariable Long id, Pageable pagination) {
+		return facade.findProductsByMarket(id, pagination);
+	}
+	
+	@GetMapping(EndpointsConstMapping.ProductEP.MAIN + "/category" + "/{id}")
+	public Page<ProductDTO> findProductsByCategory(@PathVariable Long id, Pageable pagination) {
+		return facade.findProductsByCategory(id, pagination);
 	}
 	
 //	@GetMapping(EndpointsConstMapping.ItemsEP.PRODUCT)

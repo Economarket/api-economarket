@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
@@ -46,16 +48,16 @@ public class SearchFacade {
 		return modelMapperUtil.categoryModelToDTO(categoryRepository.findById(id).get());
 	}
 	
-	public List<BrandDTO> findBrands() {
-		return modelMapperUtil.brandModelToDTO(brandRepository.findAll());
+	public Page<BrandDTO> findBrands(Pageable pagination) {
+		return modelMapperUtil.brandModelToDTO(brandRepository.findAll(pagination));
 	}
 	
 	public BrandDTO findBrandById(Long id) {
 		return modelMapperUtil.brandModelToDTO(brandRepository.findById(id).get());
 	}
 
-	public List<MarketDTO> findMarkets() {
-		return modelMapperUtil.marketModelToDTO(marketRepository.findAll());
+	public Page<MarketDTO> findMarkets(Pageable pagination) {
+		return modelMapperUtil.marketModelToDTO(marketRepository.findAll(pagination));
 	}
 	
 	public MarketDTO findMarketById(Long id) {
@@ -67,8 +69,8 @@ public class SearchFacade {
 		return marketRepository.findByNameLike(name);
 	}
 	
-	public List<ProductDTO> findProducts() {
-		return modelMapperUtil.productModelToDTO(productRepository.findAll());
+	public Page<ProductDTO> findProducts(Pageable pagination) {
+		return modelMapperUtil.productModelToDTO(productRepository.findAll(pagination));
 	}
 	
 	public ProductDTO findProductById(Long id) {
@@ -76,18 +78,22 @@ public class SearchFacade {
 		return modelMapperUtil.productModelToDTO(optProduct.get());
 	}
 	
-	public List<ProductDTO> findProductsByName(String name) {
+	public Page<ProductDTO> findProductsByName(String name, Pageable pagination) {
 		return modelMapperUtil.productModelToDTO(
-				productRepository.findBySearchNameLike("%" + UtilsFunc.treatSearchName(name) + "%"));
+				productRepository.findBySearchNameLike(UtilsFunc.treatSearchName(name), pagination));
 	}
 
-	public List<ProductDTO> findProductsByMarket(Long id) {
-		return modelMapperUtil.productModelToDTO(productRepository.findByMarketsId(id));
+	public Page<ProductDTO> findProductsByMarket(Long id, Pageable pagination) {
+		return modelMapperUtil.productModelToDTO(productRepository.findByMarketsId(id, pagination));
 	}
 
 	public List<Product> findProductsByMarketAndName(Long marketId, String productName) {
 		//TODO: Implementar
 		//marketWithProductRepository.findByMarketIdAndProductName(marketId, productName);
 		return null;
+	}
+	
+	public Page<ProductDTO> findProductsByCategory (Long id, Pageable pagination){
+		return modelMapperUtil.productModelToDTO(productRepository.findByCategoryId(id, pagination));
 	}
 }

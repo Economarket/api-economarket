@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "product")
 public class Product {
 
 	@Id
@@ -48,7 +48,7 @@ public class Product {
 	private Category category;
 	
 	@NotNull
-	private Integer unity;
+	private String unity;
 	
 	@NotNull
 	@ManyToMany(fetch = FetchType.LAZY)
