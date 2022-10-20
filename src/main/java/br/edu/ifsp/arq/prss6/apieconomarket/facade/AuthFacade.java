@@ -48,7 +48,7 @@ public class AuthFacade {
 				
 				refreshTokenService.findRefreshTokenByUserAndUserAgent(decodedJWT.getSubject(), userAgent);
 				
-				String accessToken = JWTBuilder.createAccessToken(user.getEmail(), 
+				String accessToken = JWTBuilder.createToken(user.getEmail(), 
 						UtilsFunc.permissionsToRoleList(user.getPermissions()), TokenTypeEnum.ACCESS_TOKEN);
 				
 				Map<String, String> tokens = new HashMap<>();
