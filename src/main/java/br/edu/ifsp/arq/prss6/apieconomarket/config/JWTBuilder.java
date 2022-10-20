@@ -33,7 +33,7 @@ public class JWTBuilder {
 				.withExpiresAt(
 						new Date(System.currentTimeMillis() +
 								getExpirationTime(tokenType)))
-				.withClaim("user_id", id)
+				.withClaim(UtilsCons.USER_ID_CLAIM_NAME, id)
 				.withClaim(UtilsCons.ROLE_CLAIM_NAME, userRoles)
 				.sign(getAlgorithm());
 	}

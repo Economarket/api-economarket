@@ -41,7 +41,9 @@ public class UtilsFunc {
 		}
 		
 		String processedName = "";
-		for(String s : Arrays.asList(searchName.split(" "))) {
+		String aux = searchName.replaceAll(UtilsCons.NON_CHARACTER_REGEX, " ");
+		
+		for(String s : Arrays.asList(aux.split(" "))) {
 			processedName = processedName.concat(s.toLowerCase());
 		}
 		
