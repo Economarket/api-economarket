@@ -8,9 +8,13 @@ public class UtilsCons {
 	
 	public static final String HEADER_ATTRIBUTE = "Authorization";
 	
+	public static final String NON_CHARACTER_REGEX = "\\W";
+	
 	public static final String ROLE_HEADER = "ROLE_";
 	
 	public static final String ROLE_CLAIM_NAME = "roles";
+	
+	public static final String USER_ID_CLAIM_NAME = "roles";
 	
 	public static final String USER_AGENT_HEADER = "User-Agent";
 	
