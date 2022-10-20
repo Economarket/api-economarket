@@ -69,14 +69,13 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 		
 		UserDetail userDetail = (UserDetail) authResult.getPrincipal();
 				
-		String accessToken = JWTBuilder.createAccessToken(userDetail.getUsername(), 
+		String accessToken = JWTBuilder.createToken(userDetail.getUsername(), userDetail.getId(),
 				UtilsFunc.authoritiesToRoleList(userDetail.getAuthorities()), TokenTypeEnum.ACCESS_TOKEN);
 		
-		String refreshToken = JWTBuilder.createAccessToken(userDetail.getUsername(), 
+		String refreshToken = JWTBuilder.createToken(userDetail.getUsername(), 
 				UtilsFunc.authoritiesToRoleList(userDetail.getAuthorities()), TokenTypeEnum.REFRESH_TOKEN);
 		
 		Map<String, String> loginResponse = new HashMap<>();
-		loginResponse.put("user_id", userDetail.getId().toString());
 		loginResponse.put("access_token", accessToken);
 		
 		User user = new User();

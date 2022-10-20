@@ -19,7 +19,13 @@ import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsCons;
 
 public class JWTBuilder {
 
-	public static String createAccessToken(String subject, List<String> userRoles, 
+	public static String createToken(String subject, List<String> userRoles, 
+			TokenTypeEnum tokenType) {
+		
+		return createToken(subject, null, userRoles, tokenType);
+	}
+	
+	public static String createToken(String subject, Long id, List<String> userRoles, 
 			TokenTypeEnum tokenType) {
 		
 		return JWT.create()
@@ -27,6 +33,7 @@ public class JWTBuilder {
 				.withExpiresAt(
 						new Date(System.currentTimeMillis() +
 								getExpirationTime(tokenType)))
+				.withClaim("user_id", id)
 				.withClaim(UtilsCons.ROLE_CLAIM_NAME, userRoles)
 				.sign(getAlgorithm());
 	}
