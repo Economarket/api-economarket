@@ -12,6 +12,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.UserRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.ModelMapperUtil;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
 
 @Service
@@ -40,10 +41,26 @@ public class UserFacade {
 	}
 
 	public User updateUser(User user) {
+		if(UtilsFunc.stringEquals(user.getEmail(), "admin@admin.com") ||
+				UtilsFunc.stringEquals(user.getEmail(), "manager@manager.com")) {
+			
+			throw new RuntimeException(
+					"Operação inválida! O usuário é privado e não permite modificações. (PARA DE FAZER MERDA NA APLICAÇÃO!!!)");
+		}
+		
 		return userRepository.save(user);
 	}
 
 	public void deleteUser(long id) {
+		User user = userRepository.findById(id).get();
+		
+		if(user != null && (UtilsFunc.stringEquals(user.getEmail(), "admin@admin.com") ||
+				UtilsFunc.stringEquals(user.getEmail(), "manager@manager.com"))) {
+			
+			throw new RuntimeException(
+					"Operação inválida! O usuário é privado e não permite modificações. (PARA DE FAZER MERDA NA APLICAÇÃO!!!)");
+		}
+		
 		userRepository.deleteById(id);
 	}
 	
