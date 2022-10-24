@@ -17,6 +17,11 @@ public class EndpointsConstMapping {
 		public static final String MAIN = "/category";		
 	}
 	
+	public class FieldUtilsEP {
+		public static final String MAIN = "/fieldutils";
+		public static final String UNITY = "/unity";
+	}
+	
 	public class MarketEP {
 		public static final String MAIN = "/market";
 	}
@@ -46,4 +51,5 @@ public class EndpointsConstMapping {
 		public static final String MAIN = "/user";
 		public static final String BY_ID = "/{id}";
 	}
+	
 }
