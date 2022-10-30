@@ -45,6 +45,7 @@ public class EndpointsConstMapping {
 	
 	public class ShoppingEP {
 		public static final String MAIN = "/shopping";
+		public static final String BY_ID = "/{id}";
 	}
 	
 	public class UserEP {

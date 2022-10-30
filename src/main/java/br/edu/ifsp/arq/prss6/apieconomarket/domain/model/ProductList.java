@@ -32,10 +32,9 @@ public class ProductList {
 	
 	private String uuid = UUID.randomUUID().toString();
 	
-	@NotNull
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "shopping_list_id")
+	@JoinColumn(name = "shopping_list_id", referencedColumnName = "id")
 	private ShoppingList shoppingList;
 	
 	@NotNull
