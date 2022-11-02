@@ -1,5 +1,7 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.security;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -123,8 +125,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		
 		CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-//		corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-//		corsConfiguration.setAllowedOrigins(List.of("*")); //TODO: Setar origens do front-end
+		corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+		corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080", "http://127.0.0.1:3000")); //TODO: Setar origens do front-end
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		
 		return source;
