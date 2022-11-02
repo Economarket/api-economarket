@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.security;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -124,9 +125,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		
+		List<String> allowedMethods = new ArrayList<>();
+		allowedMethods.add("GET");
+		allowedMethods.add("POST");
+		allowedMethods.add("PUT");
+		allowedMethods.add("DELETE");
+		
+		List<String> allowedOrigins = new ArrayList<>();
+		allowedOrigins.add("http://localhost:3000");
+		allowedOrigins.add("http://127.0.0.1:3000");
+		allowedOrigins.add("http://localhost:8080");
+		
 		CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-		corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-		corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080", "http://127.0.0.1:3000")); //TODO: Setar origens do front-end
+		corsConfiguration.setAllowedMethods(allowedMethods);
+		corsConfiguration.setAllowedOrigins(allowedOrigins);
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		
 		return source;
