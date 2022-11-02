@@ -40,6 +40,8 @@ public class UtilsFunc {
 			return null;
 		}
 		
+		searchName = replaceAccentChars(searchName);
+		
 		String processedName = "";
 		String aux = searchName.replaceAll(UtilsCons.NON_CHARACTER_REGEX, " ");
 		
@@ -48,6 +50,15 @@ public class UtilsFunc {
 		}
 		
 		return processedName;
+	}
+	
+	public static String replaceAccentChars(String value) {
+
+		for(int i = 0; i < UtilsCons.ACCENT_CHARS.length(); i++) {
+			value = value.replace(UtilsCons.ACCENT_CHARS.charAt(i), UtilsCons.NON_ACCENT_CHARS.charAt(i));
+		}
+		
+		return value;
 	}
 	
 	public static List<String> permissionsToRoleList(List<Permission> permissions) {

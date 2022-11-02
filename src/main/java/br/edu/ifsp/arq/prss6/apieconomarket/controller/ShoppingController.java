@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ShoppingListDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ShoppingList;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.ShoppingFacade;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
@@ -29,7 +29,7 @@ public class ShoppingController {
 	private ShoppingFacade facade;
 	
 	@GetMapping("/{id}")
-	public ShoppingList getShoppingList(@PathVariable Long id) {
+	public ShoppingListDTO getShoppingList(@PathVariable Long id) {
 		return facade.findById(id);
 	}
 	
@@ -43,16 +43,14 @@ public class ShoppingController {
 		return facade.saveShoppingList(shoppingList);
 	}
 	
-	//TODO: Criar um endpoint para setar a lista de produtos na ShoppingList
-	
 	@PutMapping
-	public ShoppingList updateShoppingList(@Valid @RequestBody ShoppingList shoppingList) {
+	public ShoppingListDTO updateShoppingList(@Valid @RequestBody ShoppingList shoppingList) {
 		return facade.updateShoppingList(shoppingList);
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteShoppingList(@RequestParam long id) {
+	public void deleteShoppingList(@PathVariable long id) {
 		facade.deleteShoppingList(id);
 	}
 }

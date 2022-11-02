@@ -1,5 +1,8 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -102,7 +105,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			
 			//UTILS
 			.antMatchers(HttpMethod.GET, "/fieldutils/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-						
+			
+			//SHOPPINGLIST
+			.antMatchers(HttpMethod.GET, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.POST, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.PUT, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.DELETE, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")	
+			
 //			.anyRequest().denyAll() //DEBUG -> Nega as permissões dos endpoints não configurados
 			.anyRequest().hasAuthority("ROLE_ADMIN") 
 		.and()
@@ -117,9 +126,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		
+		List<String> allowedMethods = new ArrayList<>();
+		allowedMethods.add("GET");
+		allowedMethods.add("POST");
+		allowedMethods.add("PUT");
+		allowedMethods.add("DELETE");
+		
+		List<String> allowedOrigins = new ArrayList<>();
+		allowedOrigins.add("http://localhost:3000");
+		allowedOrigins.add("http://127.0.0.1:3000");
+		allowedOrigins.add("http://localhost:8080");
+		
 		CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-//		corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-//		corsConfiguration.setAllowedOrigins(List.of("*")); //TODO: Setar origens do front-end
+		corsConfiguration.setAllowedMethods(allowedMethods);
+		corsConfiguration.setAllowedOrigins(allowedOrigins);
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		
 		return source;
