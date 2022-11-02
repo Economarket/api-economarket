@@ -140,7 +140,7 @@ public class UtilsFunc {
 	public static List<Product> productsBySearch(String search, List<Product> products) {
 		double MIN_SIMILARITY = 0.8;
 		return products.stream().filter(
-			p -> similarity(p.getName(), search) >= MIN_SIMILARITY
+			p -> similarity(p.getSearchName(), search) >= MIN_SIMILARITY
 		).collect(Collectors.toList());
 	}
 }

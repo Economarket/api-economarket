@@ -86,7 +86,7 @@ public class SearchFacade {
 	//TODO: change productRepository.findAll() to products filtered
 	public List<ProductDTO> findProductsByName(String name) {
 		return modelMapperUtil.productModelToDTO(
-				UtilsFunc.productsBySearch(name, productRepository.findAll()));
+				UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name), productRepository.findAll()));
 	}
 
 	public Page<ProductDTO> findProductsByMarket(Long id, Pageable pagination) {
