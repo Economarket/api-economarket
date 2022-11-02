@@ -10,6 +10,10 @@ public class UtilsCons {
 	
 	public static final String NON_CHARACTER_REGEX = "\\W";
 	
+	public static final String ACCENT_CHARS = "ÄÅÁÂÀÃäáâàãÉÊËÈéêëèÍÎÏÌíîïìÖÓÔÒÕöóôòõÜÚÛüúûùÇç";
+	
+	public static final String NON_ACCENT_CHARS = "AAAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUuuuuCc";
+	
 	public static final String ROLE_HEADER = "ROLE_";
 	
 	public static final String ROLE_CLAIM_NAME = "roles";

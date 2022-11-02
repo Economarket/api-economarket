@@ -72,8 +72,8 @@ public class ModelMapperUtil {
 		return pagedMarkets.map(m -> marketModelToDTO(m));
 	}
 	
-	public List<CategoryDTO> categoryModelToDTO(List<Category> categorys) {
-		return categorys
+	public List<CategoryDTO> categoryModelToDTO(List<Category> categories) {
+		return categories
 				.stream()
 				.map(p -> modelMapper.map(p, CategoryDTO.class))
 				.collect(Collectors.toList());
