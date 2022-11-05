@@ -18,7 +18,7 @@ public class UtilsCons {
 	
 	public static final String ROLE_CLAIM_NAME = "roles";
 	
-	public static final String USER_ID_CLAIM_NAME = "roles";
+	public static final String USER_ID_CLAIM_NAME = "user_id";
 	
 	public static final String USER_AGENT_HEADER = "User-Agent";
 	
