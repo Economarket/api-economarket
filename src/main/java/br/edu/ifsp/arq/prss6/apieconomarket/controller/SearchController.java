@@ -51,7 +51,7 @@ public class SearchController {
 		return facade.findMarkets(pagination);
 	}
 	
-	@GetMapping(EndpointsConstMapping.MarketEP.MAIN)
+	@GetMapping(EndpointsConstMapping.MarketEP.DISTANCE)
 	public List<Market> findMarketsByDistance(double distance, double locateX, double locateY) {
 		return facade.findMarketsByDistance(distance, locateX, locateY);
 	}
