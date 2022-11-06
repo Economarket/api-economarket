@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -43,10 +42,10 @@ public class ShoppingController {
 		return facade.saveShoppingList(shoppingList);
 	}
 	
-	@PutMapping
-	public ShoppingListDTO updateShoppingList(@Valid @RequestBody ShoppingList shoppingList) {
-		return facade.updateShoppingList(shoppingList);
-	}
+//	@PutMapping
+//	public ShoppingListDTO updateShoppingList(@Valid @RequestBody ShoppingList shoppingList) {
+//		return facade.updateShoppingList(shoppingList);
+//	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)

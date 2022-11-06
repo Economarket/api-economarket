@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.facade;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +59,23 @@ public class SearchFacade {
 
 	public Page<MarketDTO> findMarkets(Pageable pagination) {
 		return modelMapperUtil.marketModelToDTO(marketRepository.findAll(pagination));
+	}
+	
+	public List<Market> findMarketsByDistance(double distance, double locateX, double locateY) {
+		List<Market> markets = marketRepository.findAll();
+		List<Market> nearbyMarkets = new ArrayList<>();
+		
+		markets.stream().forEach(m -> {
+			Double distanceWithMarket = UtilsFunc.calculateDistance(locateX, 
+																	locateY, 
+																	Double.parseDouble(m.getLocateX()), 
+																	Double.parseDouble(m.getLocateY()));
+			if(distance <= distanceWithMarket) {
+				nearbyMarkets.add(m);
+			}
+		});
+		
+		return nearbyMarkets;
 	}
 	
 	public MarketDTO findMarketById(Long id) {

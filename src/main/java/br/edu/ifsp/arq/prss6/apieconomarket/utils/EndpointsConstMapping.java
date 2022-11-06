@@ -48,6 +48,11 @@ public class EndpointsConstMapping {
 		public static final String BY_ID = "/{id}";
 	}
 	
+	public class ProductListEP {
+		public static final String MAIN = "/productList";
+		public static final String BY_ID = "/{id}";
+	}
+	
 	public class UserEP {
 		public static final String MAIN = "/user";
 		public static final String BY_ID = "/{id}";

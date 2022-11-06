@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ShoppingListDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ProductList;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ShoppingList;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.ShoppingRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.ModelMapperUtil;
@@ -57,7 +56,7 @@ public class ShoppingFacade {
 			
 			shoppingList.getProductList().stream().forEach(pl -> {
 				pl.setShoppingList(sl);
-				pl.setId(productListFacade.saveProductList(pl));
+				pl.setId(productListFacade.insertProductList(pl));
 			});
 
 			return idList;
@@ -66,26 +65,34 @@ public class ShoppingFacade {
 		return repository.save(shoppingList).getId();
 	}
 	
-	public ShoppingListDTO updateShoppingList(ShoppingList shoppingList) {
-		ShoppingListDTO sldto = findById(shoppingList.getId());
-		
-		sldto.getProductList().stream().forEach(pl -> productListFacade.deleteById(pl.getId()));
-		
-//		List<ProductListDTO> productList2 = sldto.getProductList();
+//	public ShoppingListDTO updateShoppingList(ShoppingList shoppingList) {
+////		ShoppingListDTO sldto = findById(shoppingList.getId());
+////		
+////		//sldto.getProductList().stream().forEach(pl -> productListFacade.deleteById(pl.getId()));
+////		
+////		List<ProductListDTO> productList2 = sldto.getProductList();
+////		
+////		for(ProductListDTO pl : productList2) {
+////			productListFacade.deleteById(pl.getId());
+////		}
+////		
+////		List<ProductList> productList = shoppingList.getProductList();
+////		
+////		ShoppingList nsl = new ShoppingList();
+////		nsl.setId(shoppingList.getId());
+////		nsl.setUser(shoppingList.getUser());
+////		nsl.setUuid(shoppingList.getUuid());
+////		
+////		
+////		for(ProductList pl : productList) {
+////			pl.setShoppingList(nsl);
+////			productListFacade.saveProductList(pl);
+////		}
 //		
-//		for(ProductListDTO pl : productList2) {
-//			productListFacade.deleteById(pl.getId());
-//		}
-		
-		List<ProductList> productList = shoppingList.getProductList();
-		
-		for(ProductList pl : productList) {
-			pl.setShoppingList(shoppingList);
-			productListFacade.saveProductList(pl);
-		}
-		
-		return findById(shoppingList.getId());
-	}
+//		repository.save(shoppingList);
+//		
+//		return findById(shoppingList.getId());
+//	}
 	
 	public void deleteShoppingList(long id) {
 		repository.deleteById(id);

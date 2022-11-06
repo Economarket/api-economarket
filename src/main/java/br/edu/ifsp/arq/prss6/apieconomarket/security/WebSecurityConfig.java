@@ -111,6 +111,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PUT, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			.antMatchers(HttpMethod.DELETE, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")	
 			
+			//SHOPPINGLIST
+			.antMatchers(HttpMethod.GET, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.POST, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.PUT, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.DELETE, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")	
+			
 //			.anyRequest().denyAll() //DEBUG -> Nega as permissões dos endpoints não configurados
 			.anyRequest().hasAuthority("ROLE_ADMIN") 
 		.and()

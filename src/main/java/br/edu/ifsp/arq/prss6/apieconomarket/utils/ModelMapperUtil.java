@@ -12,12 +12,14 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductListDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ShoppingListDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Brand;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Category;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ProductList;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ShoppingList;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 
@@ -100,6 +102,10 @@ public class ModelMapperUtil {
 
 	public ShoppingListDTO shoppingListModelToDTO(ShoppingList shoppingList) {
 		return modelMapper.map(shoppingList, ShoppingListDTO.class);
+	}
+	
+	public ProductListDTO productListModelToDTO(ProductList productList) {
+		return modelMapper.map(productList, ProductListDTO.class);
 	}
 	
 	//TODO: Adicionar outros métodos para mapeamento Entidade -> Interface
