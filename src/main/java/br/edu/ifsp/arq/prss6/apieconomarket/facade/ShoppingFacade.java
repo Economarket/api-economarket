@@ -51,6 +51,7 @@ public class ShoppingFacade {
 			}
 			
 			sl.setUser(shoppingList.getUser());
+			sl.setName(shoppingList.getName());
 			idList = repository.save(sl).getId();
 			sl.setId(idList);
 			
@@ -65,34 +66,16 @@ public class ShoppingFacade {
 		return repository.save(shoppingList).getId();
 	}
 	
-//	public ShoppingListDTO updateShoppingList(ShoppingList shoppingList) {
-////		ShoppingListDTO sldto = findById(shoppingList.getId());
-////		
-////		//sldto.getProductList().stream().forEach(pl -> productListFacade.deleteById(pl.getId()));
-////		
-////		List<ProductListDTO> productList2 = sldto.getProductList();
-////		
-////		for(ProductListDTO pl : productList2) {
-////			productListFacade.deleteById(pl.getId());
-////		}
-////		
-////		List<ProductList> productList = shoppingList.getProductList();
-////		
-////		ShoppingList nsl = new ShoppingList();
-////		nsl.setId(shoppingList.getId());
-////		nsl.setUser(shoppingList.getUser());
-////		nsl.setUuid(shoppingList.getUuid());
-////		
-////		
-////		for(ProductList pl : productList) {
-////			pl.setShoppingList(nsl);
-////			productListFacade.saveProductList(pl);
-////		}
-//		
-//		repository.save(shoppingList);
-//		
-//		return findById(shoppingList.getId());
-//	}
+	public ShoppingListDTO updateShoppingList(ShoppingList shoppingList) {
+		
+		shoppingList.getProductList().forEach(pl -> {
+			pl.setShoppingList(new ShoppingList(shoppingList.getId()));
+		});
+		
+		repository.save(shoppingList);
+		
+		return findById(shoppingList.getId());
+	}
 	
 	public void deleteShoppingList(long id) {
 		repository.deleteById(id);
