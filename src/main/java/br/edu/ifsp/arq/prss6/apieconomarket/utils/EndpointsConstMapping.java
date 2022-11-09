@@ -20,10 +20,12 @@ public class EndpointsConstMapping {
 	public class FieldUtilsEP {
 		public static final String MAIN = "/fieldutils";
 		public static final String UNITY = "/unity";
+		public static final String BRAND = "/brand";
 	}
 	
 	public class MarketEP {
 		public static final String MAIN = "/market";
+		public static final String DISTANCE = "/market/distance";
 	}
 	
 	public class PermissionEP {
@@ -45,6 +47,11 @@ public class EndpointsConstMapping {
 	
 	public class ShoppingEP {
 		public static final String MAIN = "/shopping";
+		public static final String BY_ID = "/{id}";
+	}
+	
+	public class ProductListEP {
+		public static final String MAIN = "/productList";
 		public static final String BY_ID = "/{id}";
 	}
 	

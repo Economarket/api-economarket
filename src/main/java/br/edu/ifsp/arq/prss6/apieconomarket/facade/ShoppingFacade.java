@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ShoppingListDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ProductList;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ShoppingList;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.ShoppingRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.ModelMapperUtil;
@@ -52,12 +51,13 @@ public class ShoppingFacade {
 			}
 			
 			sl.setUser(shoppingList.getUser());
+			sl.setName(shoppingList.getName());
 			idList = repository.save(sl).getId();
 			sl.setId(idList);
 			
 			shoppingList.getProductList().stream().forEach(pl -> {
 				pl.setShoppingList(sl);
-				pl.setId(productListFacade.saveProductList(pl));
+				pl.setId(productListFacade.insertProductList(pl));
 			});
 
 			return idList;
@@ -67,22 +67,12 @@ public class ShoppingFacade {
 	}
 	
 	public ShoppingListDTO updateShoppingList(ShoppingList shoppingList) {
-		ShoppingListDTO sldto = findById(shoppingList.getId());
 		
-		sldto.getProductList().stream().forEach(pl -> productListFacade.deleteById(pl.getId()));
+		shoppingList.getProductList().forEach(pl -> {
+			pl.setShoppingList(new ShoppingList(shoppingList.getId()));
+		});
 		
-//		List<ProductListDTO> productList2 = sldto.getProductList();
-//		
-//		for(ProductListDTO pl : productList2) {
-//			productListFacade.deleteById(pl.getId());
-//		}
-		
-		List<ProductList> productList = shoppingList.getProductList();
-		
-		for(ProductList pl : productList) {
-			pl.setShoppingList(shoppingList);
-			productListFacade.saveProductList(pl);
-		}
+		repository.save(shoppingList);
 		
 		return findById(shoppingList.getId());
 	}

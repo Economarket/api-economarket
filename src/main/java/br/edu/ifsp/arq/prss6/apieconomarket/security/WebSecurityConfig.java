@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -112,6 +113,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PUT, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			.antMatchers(HttpMethod.DELETE, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")	
 			
+			//SHOPPINGLIST
+			.antMatchers(HttpMethod.GET, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.POST, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.PUT, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.DELETE, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			
+			//SWAGGER
+			.antMatchers("/swagger-ui/**").permitAll()
+			.antMatchers("/v2/api-docs").permitAll()
+			
 //			.anyRequest().denyAll() //DEBUG -> Nega as permissões dos endpoints não configurados
 			.anyRequest().hasAuthority("ROLE_ADMIN") 
 		.and()
@@ -143,5 +154,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		
 		return source;
+	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("*.html", "/v2/api/docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
 	}
 }

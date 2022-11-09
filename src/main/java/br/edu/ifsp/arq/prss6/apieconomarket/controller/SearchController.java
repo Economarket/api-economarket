@@ -15,6 +15,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.SearchFacade;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 
@@ -49,6 +50,12 @@ public class SearchController {
 	public Page<MarketDTO> findMarkets(Pageable pagination) {
 		return facade.findMarkets(pagination);
 	}
+	
+	//TODO: Testar e descomentar endpoint
+//	@GetMapping(EndpointsConstMapping.MarketEP.DISTANCE)
+//	public List<Market> findMarketsByDistance(double distance, double locateX, double locateY) {
+//		return facade.findMarketsByDistance(distance, locateX, locateY);
+//	}
 	
 	@GetMapping(EndpointsConstMapping.MarketEP.MAIN + "/{id}")
 	public MarketDTO findMarketById(@PathVariable Long id) {

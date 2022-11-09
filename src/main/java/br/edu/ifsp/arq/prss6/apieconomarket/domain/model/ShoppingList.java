@@ -25,6 +25,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class ShoppingList {
+	
+	public ShoppingList(Long id) {
+		this.id = id;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +40,9 @@ public class ShoppingList {
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
+	
+	@NotNull
+	private String name;
 	
 	@OneToMany(mappedBy = "shoppingList", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProductList> productList = new ArrayList<>();
