@@ -144,8 +144,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		List<String> allowedOrigins = new ArrayList<>();
 		allowedOrigins.add("http://localhost:3000");
+		allowedOrigins.add("https://localhost:3000");
 		allowedOrigins.add("http://127.0.0.1:3000");
+		allowedOrigins.add("https://127.0.0.1:3000");
 		allowedOrigins.add("http://localhost:8080");
+		allowedOrigins.add("https://localhost:8080");
+		allowedOrigins.add("http://www.economarket.com.br");
+		allowedOrigins.add("https://www.economarket.com.br");
 		
 		CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
 		corsConfiguration.setAllowedMethods(allowedMethods);
