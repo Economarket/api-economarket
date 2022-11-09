@@ -51,10 +51,11 @@ public class SearchController {
 		return facade.findMarkets(pagination);
 	}
 	
-	@GetMapping(EndpointsConstMapping.MarketEP.DISTANCE)
-	public List<Market> findMarketsByDistance(double distance, double locateX, double locateY) {
-		return facade.findMarketsByDistance(distance, locateX, locateY);
-	}
+	//TODO: Testar e descomentar endpoint
+//	@GetMapping(EndpointsConstMapping.MarketEP.DISTANCE)
+//	public List<Market> findMarketsByDistance(double distance, double locateX, double locateY) {
+//		return facade.findMarketsByDistance(distance, locateX, locateY);
+//	}
 	
 	@GetMapping(EndpointsConstMapping.MarketEP.MAIN + "/{id}")
 	public MarketDTO findMarketById(@PathVariable Long id) {
