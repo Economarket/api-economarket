@@ -126,6 +126,23 @@ create table public.product_list(
 );
 
 RAISE NOTICE 'Total de tabelas criadas 8/12';
+drop table if exists public.address cascade;
+create table public.address(
+	id int primary key generated always as identity,
+	cep varchar(25) not null,
+	street varchar(128) not null,
+	number int not null,
+	complement varchar(128) null,
+	district varchar(128) not null,
+	city  varchar(256) not null,
+	state varchar(128) not null
+);
+
+insert into address(cep, street, number, complement, district, city, state) values ('14801-385','Rua Humaitá', '1480', null, 'Centro', 'Araraquara', 'São Paulo' );
+insert into address(cep, street, number, complement, district, city, state) values ('14811-218','Avenida Francisco Vaz Filho', '2874', null, 'Vila Xavier', 'Araraquara', 'São Paulo' );
+
+RAISE NOTICE 'Total de tabelas criadas 9/12';
+
 
 drop table if exists public.market cascade;
 create table public.market(
@@ -134,28 +151,15 @@ create table public.market(
 	name varchar(256) not null,
 	description varchar(256) not null,
 	logo bytea null,
-	locateX int not null,
-	locateY int not null
+	locateX decimal not null,
+	locateY decimal not null,
+	AddressId int null,
+	foreign key (AddressId) references public.address (id)
 );
 
-RAISE NOTICE 'Total de tabelas criadas 9/12';
-
-drop table if exists public.address cascade;
-create table public.address(
-	id int primary key generated always as identity,
-	marketId int not null,
-	userId int not null,
-	cep varchar(25) not null,
-	street varchar(128) not null,
-	number int not null,
-	complement varchar(128) null,
-	district varchar(128) not null,
-	city  varchar(256) not null,
-	state varchar(128) not null,
-	foreign key (userId) references public.user (id),
-	foreign key (marketId) references public.market (id)
-);
-
+insert into public.market(uuid, name, description, logo, locateX, locateY) values (null, 'Jáu Serv Supermercados', null, null,-21.795038023575053,-48.18144216023546, 1 );
+insert into public.market(uuid, name, description, logo, locateX, locateY) values (null, 'Supermercados Palomax Loja 05', null, null,-21.775875768284834,-48.144382872697214, 2 );
+ , 
 RAISE NOTICE 'Total de tabelas criadas 10/12';
 
 drop table if exists public.market_with_product;
@@ -183,8 +187,3 @@ RAISE NOTICE 'Total de tabelas criadas 12/12';
 
 end;
 $$;
---select * from product 
---select * from brand;
---select * from category;
---
---call economarket();
