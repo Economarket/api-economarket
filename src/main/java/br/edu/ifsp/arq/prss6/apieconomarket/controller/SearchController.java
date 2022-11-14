@@ -15,7 +15,6 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.SearchFacade;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 
@@ -44,6 +43,11 @@ public class SearchController {
 	@GetMapping(EndpointsConstMapping.BrandEP.MAIN + "/{id}")
 	public BrandDTO findBrandById(@PathVariable Long id) {
 		return facade.findBrandById(id);
+	}
+	
+	@GetMapping(EndpointsConstMapping.BrandEP.MAIN + "/name")
+	public BrandDTO findBrandById(@RequestParam String name) {
+		return facade.findBrandByName(name);
 	}
 	
 	@GetMapping(EndpointsConstMapping.MarketEP.MAIN)
