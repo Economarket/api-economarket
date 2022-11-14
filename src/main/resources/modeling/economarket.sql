@@ -135,11 +135,13 @@ create table public.address(
 	complement varchar(128) null,
 	district varchar(128) not null,
 	city  varchar(256) not null,
-	state varchar(128) not null
+	state varchar(128) not null,
+	locateX decimal not null,
+	locateY decimal not null,
 );
 
-insert into address(cep, street, number, complement, district, city, state) values ('14801-385','Rua Humaitá', '1480', null, 'Centro', 'Araraquara', 'São Paulo' );
-insert into address(cep, street, number, complement, district, city, state) values ('14811-218','Avenida Francisco Vaz Filho', '2874', null, 'Vila Xavier', 'Araraquara', 'São Paulo' );
+insert into address(cep, street, number, complement, district, city, state) values ('14801-385','Rua Humaitá', '1480', null, 'Centro', 'Araraquara', 'São Paulo',-21.795038023575053,-48.18144216023546,  );
+insert into address(cep, street, number, complement, district, city, state) values ('14811-218','Avenida Francisco Vaz Filho', '2874', null, 'Vila Xavier', 'Araraquara', 'São Paulo',-21.775875768284834,-48.144382872697214 );
 
 RAISE NOTICE 'Total de tabelas criadas 9/12';
 
@@ -151,14 +153,12 @@ create table public.market(
 	name varchar(256) not null,
 	description varchar(256) not null,
 	logo bytea null,
-	locateX decimal not null,
-	locateY decimal not null,
-	AddressId int null,
+	addressId int null,
 	foreign key (AddressId) references public.address (id)
 );
 
-insert into public.market(uuid, name, description, logo, locateX, locateY) values (null, 'Jáu Serv Supermercados', null, null,-21.795038023575053,-48.18144216023546, 1 );
-insert into public.market(uuid, name, description, logo, locateX, locateY) values (null, 'Supermercados Palomax Loja 05', null, null,-21.775875768284834,-48.144382872697214, 2 );
+insert into public.market(uuid, name, description, logo, addressId) values (null, 'Jáu Serv Supermercados', null, null,1 );
+insert into public.market(uuid, name, description, logo, addressId) values (null, 'Supermercados Palomax Loja 05', null, null, 2 );
  , 
 RAISE NOTICE 'Total de tabelas criadas 10/12';
 
