@@ -137,7 +137,7 @@ create table public.address(
 	city  varchar(256) not null,
 	state varchar(128) not null,
 	locateX decimal not null,
-	locateY decimal not null,
+	locateY decimal not null
 );
 
 insert into address(cep, street, number, complement, district, city, state) values ('14801-385','Rua Humaitá', '1480', null, 'Centro', 'Araraquara', 'São Paulo',-21.795038023575053,-48.18144216023546,  );
