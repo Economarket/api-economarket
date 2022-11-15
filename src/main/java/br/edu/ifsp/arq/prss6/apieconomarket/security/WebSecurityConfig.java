@@ -67,30 +67,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			
 			//Configs gerais
 			.antMatchers(EndpointsConstMapping.AuthEP.MAIN + 
-					EndpointsConstMapping.AuthEP.LOGOUT).hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+					EndpointsConstMapping.AuthEP.LOGOUT).hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			
 			//BUSCAS
-			.antMatchers(HttpMethod.GET, "/search/brand/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.GET, "/search/category/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.GET, "/search/market/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.GET, "/search/product/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.GET, "/search/brand/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.GET, "/search/category/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.GET, "/search/market/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.GET, "/search/product/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			
 			//REGISTROS
-			.antMatchers(HttpMethod.POST, "/register/brand/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.PUT, "/register/brand/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.DELETE, "/register/brand/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.POST, "/register/brand/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.PUT, "/register/brand/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.DELETE, "/register/brand/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			
-			.antMatchers(HttpMethod.POST, "/register/category/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.PUT, "/register/category/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.DELETE, "/register/category/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.POST, "/register/category/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.PUT, "/register/category/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.DELETE, "/register/category/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			
-			.antMatchers(HttpMethod.POST, "/register/market/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.PUT, "/register/market/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.DELETE, "/register/market/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.POST, "/register/market/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.PUT, "/register/market/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.DELETE, "/register/market/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			
-			.antMatchers(HttpMethod.POST, "/register/product/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.PUT, "/register/product/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.DELETE, "/register/product/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.POST, "/register/product/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.PUT, "/register/product/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.DELETE, "/register/product/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			
 			//PERMISSÕES
 			.antMatchers(HttpMethod.GET, "/permission/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
@@ -99,25 +99,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.DELETE, "/permission/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			
 			//USUARIO
-			.antMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			.antMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.PUT, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.DELETE, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.PUT, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.DELETE, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER") //TODO: Verificar permissão de usuário (não pode deletar outros usuários)
 			
 			//UTILS
 			.antMatchers(HttpMethod.GET, "/fieldutils/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
 			
 			//SHOPPINGLIST
-			.antMatchers(HttpMethod.GET, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.POST, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.PUT, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.DELETE, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")	
+			.antMatchers(HttpMethod.GET, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.POST, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.PUT, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.DELETE, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")	
 			
-			//SHOPPINGLIST
-			.antMatchers(HttpMethod.GET, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.POST, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.PUT, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-			.antMatchers(HttpMethod.DELETE, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			//PRODUCTLIST
+			.antMatchers(HttpMethod.GET, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.POST, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.PUT, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
+			.antMatchers(HttpMethod.DELETE, "/productList/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			
 			//SWAGGER
 			.antMatchers("/swagger-ui/**").permitAll()
@@ -150,6 +150,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		allowedOrigins.add("https://127.0.0.1:3000");
 		allowedOrigins.add("http://localhost:8080");
 		allowedOrigins.add("https://localhost:8080");
+		allowedOrigins.add("http://localhost:4200");
+		allowedOrigins.add("https://localhost:4200");
 		allowedOrigins.add("http://www.economarket.com.br");
 		allowedOrigins.add("https://www.economarket.com.br");
 		

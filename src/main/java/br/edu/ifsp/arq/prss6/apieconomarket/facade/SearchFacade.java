@@ -73,8 +73,8 @@ public class SearchFacade {
 		markets.stream().forEach(m -> {
 			Double distanceWithMarket = UtilsFunc.calculateDistance(locateX, 
 																	locateY, 
-																	Double.parseDouble(m.getLocateX()), 
-																	Double.parseDouble(m.getLocateY()));
+																	Double.parseDouble(m.getAddress().getLocateX()), 
+																	Double.parseDouble(m.getAddress().getLocateY()));
 			if(distance <= distanceWithMarket) {
 				nearbyMarkets.add(m);
 			}

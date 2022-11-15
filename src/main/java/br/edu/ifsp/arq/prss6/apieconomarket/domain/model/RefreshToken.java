@@ -2,6 +2,7 @@ package br.edu.ifsp.arq.prss6.apieconomarket.domain.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class RefreshToken {
 	
 	private String userAgent;
 
+	@Column(columnDefinition = "text")
 	private String token;
 	
 	private LocalDateTime dateTime;

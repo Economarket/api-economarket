@@ -56,7 +56,10 @@ public class ModelMapperUtil {
 	}
 	
 	public ProductDTO productModelToDTO(Product product) {
-		return modelMapper.map(product, ProductDTO.class);
+		ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
+		productDTO.setMarket(marketModelToDTO(product.getMarkets().get(0)));
+		
+		return productDTO;
 	}
 	
 	public MarketDTO marketModelToDTO(Market market) {
@@ -98,6 +101,13 @@ public class ModelMapperUtil {
 	
 	public BrandDTO brandModelToDTO(Brand brand) {
 		return modelMapper.map(brand, BrandDTO.class);
+	}
+	
+	public List<ShoppingListDTO> shoppingListModelToDTO(List<ShoppingList> shoppingLists) {
+		return shoppingLists
+				.stream()
+				.map(sl -> modelMapper.map(sl, ShoppingListDTO.class))
+				.collect(Collectors.toList());
 	}
 
 	public ShoppingListDTO shoppingListModelToDTO(ShoppingList shoppingList) {

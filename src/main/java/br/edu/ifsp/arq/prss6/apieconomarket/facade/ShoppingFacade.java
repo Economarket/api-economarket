@@ -28,8 +28,8 @@ public class ShoppingFacade {
 	@Autowired
 	private ModelMapperUtil modelMapperUtil;
 	
-	public List<ShoppingList> findByUserId(Long userId) {
-		return repository.findByUserId(userId);
+	public List<ShoppingListDTO> findByUserId(Long userId) {
+		return modelMapperUtil.shoppingListModelToDTO(repository.findByUserId(userId));
 	}
 	
 	public ShoppingListDTO findById(Long id) {

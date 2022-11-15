@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.facade;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.UserDTO;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Permission;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
+import br.edu.ifsp.arq.prss6.apieconomarket.repository.PermissionRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.UserRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.ModelMapperUtil;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsCons;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
 
@@ -20,6 +24,9 @@ public class UserFacade {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private PermissionRepository permissionRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -37,6 +44,13 @@ public class UserFacade {
 	
 	public Long saveUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		Permission permission = permissionRepository.findByName(UtilsCons.USER_DEFAULT_PERMISSION).get();
+		if(permission == null) {
+			throw new RuntimeException("Permissão não encontrada!");
+		}
+		
+		user.setPermissions(Arrays.asList(permission));
 		return userRepository.save(user).getId();
 	}
 
