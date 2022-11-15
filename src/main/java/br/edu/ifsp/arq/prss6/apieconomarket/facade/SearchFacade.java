@@ -75,7 +75,7 @@ public class SearchFacade {
 																	locateY, 
 																	Double.parseDouble(m.getAddress().getLocateX()), 
 																	Double.parseDouble(m.getAddress().getLocateY()));
-			if(distance <= distanceWithMarket) {
+			if(distance >= distanceWithMarket) {
 				nearbyMarkets.add(m);
 			}
 		});

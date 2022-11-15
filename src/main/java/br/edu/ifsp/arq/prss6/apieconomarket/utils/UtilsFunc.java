@@ -98,7 +98,7 @@ public class UtilsFunc {
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 	    double dist = earthRadius * c;
 	 
-	    return dist * 1000;
+	    return dist;
 	}
 	
 	public static Integer refreshToSeconds() {
