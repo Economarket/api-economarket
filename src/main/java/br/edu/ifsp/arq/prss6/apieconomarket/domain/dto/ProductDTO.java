@@ -14,4 +14,12 @@ public class ProductDTO {
 	private Double price;
 	
 	private CategoryDTO category;
+	
+	private BrandDTO brand;
+	
+	private MarketDTO market;
+	
+	private String unity;
+	
+	private Boolean greaterThanLastPrice;
 }

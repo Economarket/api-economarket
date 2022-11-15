@@ -76,7 +76,6 @@ public class User {
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private Address address;
 	
-	@JsonProperty(access = Access.READ_ONLY)
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<RefreshToken> tokens;

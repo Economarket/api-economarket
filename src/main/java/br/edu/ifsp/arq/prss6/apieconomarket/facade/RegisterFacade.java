@@ -144,11 +144,21 @@ public class RegisterFacade {
 	}
 
 	public Long saveProduct(Product product) {
-		product.setSearchName(UtilsFunc.deleteAllWhiteSpaces(product.getName()));
+		Brand brand = brandRepository.save(product.getBrand());
+		brand.setSearchName(UtilsFunc.treatSearchName(brand.getBrandName()));
+		
+		product.setSearchName(UtilsFunc.treatSearchName(product.getName()));
+		product.setBrand(brand);
 		return productRepository.save(product).getId();
 	}
 
 	public ProductDTO updateProduct(Product product) {
+		Product oldProduct = productRepository.findById(product.getId()).get();
+		
+		if(oldProduct != null) {
+			product.setGreaterThanLastPrice(product.getPrice() > oldProduct.getPrice());
+		}
+		
 		return modelMapperUtil.productModelToDTO(productRepository.save(product));
 	}
 

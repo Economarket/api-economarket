@@ -47,4 +47,10 @@ public class Address {
 	
 	@NotNull
 	private String state;
+	
+	@NotNull
+	private String locateX;
+	
+	@NotNull
+	private String locateY;
 }

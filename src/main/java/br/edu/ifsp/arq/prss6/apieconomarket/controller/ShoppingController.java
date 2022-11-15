@@ -34,9 +34,13 @@ public class ShoppingController {
 	}
 	
 	@GetMapping(EndpointsConstMapping.UserEP.MAIN + "/{userId}")
-	public List<ShoppingList> getShoppingLists(@PathVariable Long userId) {
+	public List<ShoppingListDTO> getShoppingLists(@PathVariable Long userId) {
 		return facade.findByUserId(userId);
 	}
+	
+	//TODO: Criar endpoint para retornar mercados próximos
+	
+	//TODO: Criar endpoint para retornar produtos por menor preço em cada mercado
 	
 	@PostMapping
 	public Long saveShoppingList(@Valid @RequestBody ShoppingList shoppingList) {

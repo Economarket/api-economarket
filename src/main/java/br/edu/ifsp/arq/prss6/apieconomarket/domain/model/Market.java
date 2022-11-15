@@ -35,12 +35,6 @@ public class Market {
 	private String uuid = UUID.randomUUID().toString();
 	
 	@NotNull
-	private String locateX;
-	
-	@NotNull
-	private String locateY;
-	
-	@NotNull
 	private String name;
 	
 	private String description;

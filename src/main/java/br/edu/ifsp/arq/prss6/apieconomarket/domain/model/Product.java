@@ -34,6 +34,8 @@ public class Product {
 	
 	private String searchName;
 	
+	private Boolean greaterThanLastPrice = false;
+	
 	@NotNull
 	private Double price;
 	
