@@ -144,8 +144,12 @@ public class RegisterFacade {
 	}
 
 	public Long saveProduct(Product product) {
-		Brand brand = brandRepository.save(product.getBrand());
-		brand.setSearchName(UtilsFunc.treatSearchName(brand.getBrandName()));
+		Brand brand = brandRepository.findById(product.getBrand().getId()).get();
+		if(brand == null) {
+			
+			brand = brandRepository.save(product.getBrand());
+			brand.setSearchName(UtilsFunc.treatSearchName(brand.getBrandName()));
+		}
 		
 		product.setSearchName(UtilsFunc.treatSearchName(product.getName()));
 		product.setBrand(brand);
