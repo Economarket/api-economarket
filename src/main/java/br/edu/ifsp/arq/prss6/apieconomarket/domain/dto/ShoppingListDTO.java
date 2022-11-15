@@ -11,7 +11,7 @@ public class ShoppingListDTO {
 
 	private Long id;
 	
-	private String uuid;
+	private String name;
 	
 	private List<ProductListDTO> productList;
 }
