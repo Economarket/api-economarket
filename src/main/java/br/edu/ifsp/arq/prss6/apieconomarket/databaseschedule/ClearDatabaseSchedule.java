@@ -18,8 +18,13 @@ public class ClearDatabaseSchedule {
 	
 	@Autowired
 	private RefreshTokenService refreshTokenService;
+	
+	private final long SEGUNDO = 1000; 
+    private final long MINUTO = SEGUNDO * 60; 
+    private final long HORA = MINUTO * 60;
 
-	@Scheduled(cron = "* */15 * * * *")
+//	@Scheduled(cron = "* * */1 * * *")
+    @Scheduled(fixedDelay = HORA)
 	public void schedule() {
 		this.clearDatabase();
 	}
