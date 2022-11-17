@@ -75,7 +75,7 @@ public class SearchFacade {
 																	locateY, 
 																	Double.parseDouble(m.getAddress().getLocateX()), 
 																	Double.parseDouble(m.getAddress().getLocateY()));
-			if(distance <= distanceWithMarket) {
+			if(distance >= distanceWithMarket) {
 				nearbyMarkets.add(m);
 			}
 		});
@@ -103,7 +103,7 @@ public class SearchFacade {
 	
 	public Page<ProductDTO> findProductsByName(String name, Pageable pagination) {
 		return modelMapperUtil.productModelToDTO(
-				productRepository.findBySearchNameLike(UtilsFunc.treatSearchName(name), pagination));
+				UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name), productRepository.findAll(pagination)));
 	}
 
 	public Page<ProductDTO> findProductsByMarket(Long id, Pageable pagination) {

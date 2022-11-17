@@ -6,11 +6,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTParametersConfig;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Permission;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
 
 public class UtilsFunc {
 	
@@ -98,7 +101,7 @@ public class UtilsFunc {
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 	    double dist = earthRadius * c;
 	 
-	    return dist * 1000;
+	    return dist;
 	}
 	
 	public static Integer refreshToSeconds() {
@@ -107,5 +110,51 @@ public class UtilsFunc {
 	
 	public static Integer refreshToMinutes() {
 		return refreshToSeconds()/60;
+	}
+	
+	private static Integer levenshtein(String s1, String s2) {
+		if(s1.length() < s2.length())
+			return levenshtein(s2, s1);
+
+		s1 = s1.toLowerCase();
+		s2 = s2.toLowerCase();
+	
+		int[] costs = new int[s2.length() + 1];
+		
+		for (int i = 0; i <= s1.length(); i++) {
+		  int lastValue = i;
+		  for (int j = 0; j <= s2.length(); j++) {
+			if (i == 0) {
+				costs[j] = j;
+			} else {
+			  if (j > 0) {
+				int newValue = costs[j - 1];
+				if (s1.charAt(i - 1) != s2.charAt(j - 1))
+				  newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+				costs[j - 1] = lastValue;
+				lastValue = newValue;
+			  }
+			}
+		  }
+		  if (i > 0)
+			costs[s2.length()] = lastValue;
+		}
+
+		return costs[s2.length()];
+	}
+
+	private static Double similarity(String s1, String s2){
+		double longerLength = (double) Math.max(s1.length(), s2.length());
+		if (longerLength == 0 || s1.contains(s2) || s2.contains(s1))
+			return 1.0;
+		
+		return (longerLength - levenshtein(s1, s2))/longerLength;			
+	}
+
+	public static Page<Product> productsBySearch(String search, Page<Product> products) {
+		double MIN_SIMILARITY = 0.6;
+		return new PageImpl<Product>(products.stream().filter(
+			p -> similarity(p.getSearchName(), search) >= MIN_SIMILARITY
+		).collect(Collectors.toList()));
 	}
 }

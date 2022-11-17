@@ -105,7 +105,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.DELETE, "/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER") //TODO: Verificar permissão de usuário (não pode deletar outros usuários)
 			
 			//UTILS
-			.antMatchers(HttpMethod.GET, "/fieldutils/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
+			.antMatchers(HttpMethod.GET, "/fieldutils/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			
 			//SHOPPINGLIST
 			.antMatchers(HttpMethod.GET, "/shopping/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")

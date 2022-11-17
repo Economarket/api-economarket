@@ -163,6 +163,7 @@ public class RegisterFacade {
 			product.setGreaterThanLastPrice(product.getPrice() > oldProduct.getPrice());
 		}
 		
+		product.setSearchName(UtilsFunc.treatSearchName(product.getName()));
 		return modelMapperUtil.productModelToDTO(productRepository.save(product));
 	}
 
