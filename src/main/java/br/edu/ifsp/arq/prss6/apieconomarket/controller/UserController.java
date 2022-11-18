@@ -50,8 +50,6 @@ public class UserController {
 	public User updateUser(@Valid @RequestBody User user) {
 		return facade.updateUser(user);
 	}
-	
-	//TODO: Criar um endpoint para setar as permissões do usuário no banco
 
 	@DeleteMapping(EndpointsConstMapping.UserEP.BY_ID)
 	@ResponseStatus(HttpStatus.OK)
