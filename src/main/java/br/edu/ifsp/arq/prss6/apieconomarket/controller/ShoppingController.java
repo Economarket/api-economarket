@@ -28,11 +28,6 @@ public class ShoppingController {
 	@Autowired
 	private ShoppingFacade facade;
 	
-	@GetMapping("/{id}")
-	public ShoppingListDTO getShoppingList(@PathVariable Long id) {
-		return facade.findById(id);
-	}
-	
 	@GetMapping(EndpointsConstMapping.UserEP.BY_USER_ID)
 	public List<ShoppingListDTO> getShoppingLists(@PathVariable Long userId) {
 		return facade.findByUserId(userId);
