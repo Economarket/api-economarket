@@ -105,18 +105,26 @@ public class SearchFacade {
 		return modelMapperUtil.productModelToDTO(
 				UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name), productRepository.findAll(pagination)));
 	}
-
-	public Page<ProductDTO> findProductsByMarket(Long id, Pageable pagination) {
-		return modelMapperUtil.productModelToDTO(productRepository.findByMarketsId(id, pagination));
+	
+	public Page<ProductDTO> findProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pagination) {
+		return modelMapperUtil.productModelToDTO(productRepository.findByPriceRange(minPrice, maxPrice, pagination));
 	}
 
-	public List<Product> findProductsByMarketAndName(Long marketId, String productName) {
-		//TODO: Implementar
-		//marketWithProductRepository.findByMarketIdAndProductName(marketId, productName);
-		return null;
+	public Page<ProductDTO> findProductsByMarket(Long id, String name, Pageable pagination) {	
+		return UtilsFunc.isBlankOrEmpty(name) ? 
+				modelMapperUtil.productModelToDTO(productRepository.findByMarketsId(id, pagination)) :
+				modelMapperUtil.productModelToDTO(UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name), 
+						productRepository.findByMarketsId(id, pagination)));
 	}
 	
-	public Page<ProductDTO> findProductsByCategory (Long id, Pageable pagination){
+	public Page<ProductDTO> findProductsByCategory(Long id, String name, Pageable pagination){
+		return UtilsFunc.isBlankOrEmpty(name) ? 
+				modelMapperUtil.productModelToDTO(productRepository.findByCategoryId(id, pagination)) :
+				modelMapperUtil.productModelToDTO(UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name), 
+						productRepository.findByCategoryId(id, pagination)));
+	}
+	
+	public Page<ProductDTO> findProductsByCategoryAndName(Long id, String name, Pageable pagination){
 		return modelMapperUtil.productModelToDTO(productRepository.findByCategoryId(id, pagination));
 	}
 }

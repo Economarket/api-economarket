@@ -39,7 +39,7 @@ public class RegisterController {
 		return facade.updateCategory(category);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.CategoryEP.MAIN + "/{id}")
+	@DeleteMapping(EndpointsConstMapping.CategoryEP.BY_ID)
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteCategory(@PathVariable Long id) {
 		facade.deleteCategory(id);
@@ -55,7 +55,7 @@ public class RegisterController {
 		return facade.updateBrand(brand);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.BrandEP.MAIN + "/{id}")
+	@DeleteMapping(EndpointsConstMapping.BrandEP.BY_ID)
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteBrand(@PathVariable Long id) {
 		facade.deleteBrand(id);
@@ -73,7 +73,7 @@ public class RegisterController {
 		return facade.updateMarket(market);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.MarketEP.MAIN + "/{id}")
+	@DeleteMapping(EndpointsConstMapping.MarketEP.BY_ID)
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteMarket(@PathVariable Long id) {
 		facade.deleteMarket(id);
@@ -86,11 +86,10 @@ public class RegisterController {
 
 	@PutMapping(EndpointsConstMapping.ProductEP.MAIN)
 	public ProductDTO updateProduct(@Valid @RequestBody Product product) {
-		//TODO: validar se já existe
 		return facade.updateProduct(product);
 	}
 
-	@DeleteMapping(EndpointsConstMapping.ProductEP.MAIN + "/{id}")
+	@DeleteMapping(EndpointsConstMapping.ProductEP.BY_ID)
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteProduct(@PathVariable Long id) {
 		facade.deleteProduct(id);
