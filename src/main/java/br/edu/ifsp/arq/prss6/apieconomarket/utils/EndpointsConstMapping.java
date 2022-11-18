@@ -67,7 +67,7 @@ public class EndpointsConstMapping {
 	public class UserEP {
 		public static final String MAIN = "/user";
 		public static final String BY_ID = "/{id}";
-		public static final String BY_USER_ID = "/{userId}";
+		public static final String BY_USER_ID = MAIN + "/{userId}";
 	}
 	
 }
