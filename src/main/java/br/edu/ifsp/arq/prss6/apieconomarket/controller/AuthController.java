@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping(EndpointsConstMapping.AuthEP.MAIN)
 public class AuthController {
 
 	@Autowired
