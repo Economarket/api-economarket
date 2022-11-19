@@ -29,6 +29,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.config.TokenTypeEnum;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.security.authorization.UserDetail;
 import br.edu.ifsp.arq.prss6.apieconomarket.service.RefreshTokenService;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
 public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
@@ -91,6 +92,9 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 		
 		
 		Cookie cookie = new Cookie("refreshToken", refreshToken);
+		cookie.setHttpOnly(true);
+		cookie.setSecure(false);
+		cookie.setPath(EndpointsConstMapping.AuthEP.MAIN);
 		
 		response.addCookie(cookie);
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
