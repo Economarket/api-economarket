@@ -3,6 +3,7 @@ package br.edu.ifsp.arq.prss6.apieconomarket.facade;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,11 +36,16 @@ public class AuthFacade {
 	private RefreshTokenService refreshTokenService;
 	
 	public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String attribute = request.getHeader(UtilsCons.HEADER_ATTRIBUTE);
-		if(attribute != null && attribute.startsWith(UtilsCons.BEARER_ATTRIBUTE_PREFIX)) {
+		HttpServletRequest req = (HttpServletRequest)request;
+		
+		if(req.getCookies() != null) {
 			try {
 				
-				String refreshToken = attribute.replace(UtilsCons.BEARER_ATTRIBUTE_PREFIX, "");
+				String refreshToken = Stream.of(req.getCookies())
+						.filter(cookie -> "refreshToken".equals(cookie.getName()))
+						.findFirst()
+						.map(cookie -> cookie.getValue())
+						.orElse(null);
 				
 				DecodedJWT decodedJWT = JWTBuilder.getDecodedJWT(refreshToken);
 				User user = userRepository.findByEmail(decodedJWT.getSubject()).orElse(new User());
@@ -53,7 +59,6 @@ public class AuthFacade {
 				
 				Map<String, String> tokens = new HashMap<>();
 				tokens.put("access_token", accessToken);
-//				tokens.put("refresh_token", refreshToken);
 				
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 				new ObjectMapper().writeValue(response.getOutputStream(), tokens);
