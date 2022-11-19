@@ -49,7 +49,7 @@ public class SearchController {
 	}
 	
 	@GetMapping(EndpointsConstMapping.BrandEP.BY_NAME)
-	public BrandDTO findBrandById(@RequestParam String name) {
+	public List<BrandDTO> findBrandById(@RequestParam String name) {
 		return facade.findBrandByName(name);
 	}
 	

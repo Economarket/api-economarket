@@ -57,9 +57,9 @@ public class SearchFacade {
 		return modelMapperUtil.brandModelToDTO(brandRepository.findById(id).get());
 	}
 	
-	public BrandDTO findBrandByName(String name) {
+	public List<BrandDTO> findBrandByName(String name) {
 		return modelMapperUtil.brandModelToDTO(brandRepository.findBySearchNameLike(
-				"%" + UtilsFunc.treatSearchName(name) + "%").get());		
+				"%" + UtilsFunc.treatSearchName(name) + "%"));		
 	}
 
 	public Page<MarketDTO> findMarkets(Pageable pagination) {
