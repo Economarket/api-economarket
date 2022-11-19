@@ -61,13 +61,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//Configs de autenticação
 			.antMatchers(EndpointsConstMapping.AuthEP.LOGIN).permitAll()
 			.antMatchers(EndpointsConstMapping.AuthEP.MAIN + EndpointsConstMapping.AuthEP.REFRESH_TOKEN).permitAll()
+			.antMatchers(EndpointsConstMapping.AuthEP.MAIN + EndpointsConstMapping.AuthEP.LOGOUT).permitAll()
 			
 			//Endpoints abertos
 			.antMatchers(HttpMethod.POST, EndpointsConstMapping.UserEP.MAIN).permitAll()
-			
-			//Configs gerais
-			.antMatchers(EndpointsConstMapping.AuthEP.MAIN + 
-					EndpointsConstMapping.AuthEP.LOGOUT).hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
 			
 			//BUSCAS
 			.antMatchers(HttpMethod.GET, "/search/brand/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER", "ROLE_USER")
