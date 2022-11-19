@@ -102,8 +102,10 @@ public class SearchFacade {
 	}
 	
 	public Page<ProductDTO> findProductsByName(String name, Pageable pagination) {
-		return modelMapperUtil.productModelToDTO(
-				UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name), productRepository.findAll(pagination)));
+		return UtilsFunc.isBlankOrEmpty(name) ?
+				modelMapperUtil.productModelToDTO(productRepository.findAll(pagination)) :
+				modelMapperUtil.productModelToDTO(UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name),
+						productRepository.findAll(pagination)));
 	}
 	
 	public Page<ProductDTO> findProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pagination) {

@@ -73,11 +73,12 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 		String accessToken = JWTBuilder.createToken(userDetail.getUsername(), userDetail.getId(),
 				UtilsFunc.authoritiesToRoleList(userDetail.getAuthorities()), TokenTypeEnum.ACCESS_TOKEN);
 		
-		String refreshToken = JWTBuilder.createToken(userDetail.getUsername(), 
+		String refreshToken = JWTBuilder.createToken(userDetail.getUsername(), userDetail.getId(), 
 				UtilsFunc.authoritiesToRoleList(userDetail.getAuthorities()), TokenTypeEnum.REFRESH_TOKEN);
 		
 		Map<String, String> loginResponse = new HashMap<>();
 		loginResponse.put("access_token", accessToken);
+		loginResponse.put("refresh_token", refreshToken);
 		
 		User user = new User();
 		user.setId(userDetail.getId());
@@ -91,6 +92,7 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 		
 		ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
 				.path(EndpointsConstMapping.AuthEP.LOGIN)
+				.httpOnly(false)
 				.secure(true)
 				.sameSite("None")
 				.build();
