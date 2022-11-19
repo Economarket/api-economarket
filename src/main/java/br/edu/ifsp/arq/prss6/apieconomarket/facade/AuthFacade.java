@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +22,6 @@ import br.edu.ifsp.arq.prss6.apieconomarket.config.TokenTypeEnum;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.UserRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.service.RefreshTokenService;
-import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsCons;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 import lombok.extern.slf4j.Slf4j;
 
@@ -81,10 +81,14 @@ public class AuthFacade {
 	}
 
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String attribute = request.getHeader(UtilsCons.HEADER_ATTRIBUTE);
-		if(attribute != null && attribute.startsWith(UtilsCons.BEARER_ATTRIBUTE_PREFIX)) {
+		HttpServletRequest req = (HttpServletRequest)request;
+		if(req.getCookies() != null) {
 			try {
-				String refreshToken = attribute.replace(UtilsCons.BEARER_ATTRIBUTE_PREFIX, "");
+				String refreshToken = Stream.of(req.getCookies())
+						.filter(cookie -> "refreshToken".equals(cookie.getName()))
+						.findFirst()
+						.map(cookie -> cookie.getValue())
+						.orElse(null);
 				
 				DecodedJWT decodedJWT = JWTBuilder.getDecodedJWT(refreshToken);
 				User user = userRepository.findByEmail(decodedJWT.getSubject()).orElse(new User());
@@ -92,6 +96,10 @@ public class AuthFacade {
 				String userAgent = JWTBuilder.getUserAgent(request);
 				
 				refreshTokenService.invalidateRefreshToken(user, userAgent);
+				
+				Cookie cookie = new Cookie("refreshToken", null);
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
 			}
 			catch(Exception e) {
 				log.error("Erro ao realizar login: {}", e.getMessage());
