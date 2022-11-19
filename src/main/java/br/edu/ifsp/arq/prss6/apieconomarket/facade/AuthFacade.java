@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -57,7 +56,7 @@ public class AuthFacade {
 				
 				refreshTokenService.findRefreshTokenByUserAndUserAgent(decodedJWT.getSubject(), userAgent);
 				
-				String accessToken = JWTBuilder.createToken(user.getEmail(), 
+				String accessToken = JWTBuilder.createToken(user.getEmail(), user.getId(), 
 						UtilsFunc.permissionsToRoleList(user.getPermissions()), TokenTypeEnum.ACCESS_TOKEN);
 				
 				Map<String, String> tokens = new HashMap<>();
