@@ -57,9 +57,9 @@ public class SearchFacade {
 		return modelMapperUtil.brandModelToDTO(brandRepository.findById(id).get());
 	}
 	
-	public BrandDTO findBrandByName(String name) {
+	public List<BrandDTO> findBrandByName(String name) {
 		return modelMapperUtil.brandModelToDTO(brandRepository.findBySearchNameLike(
-				"%" + UtilsFunc.treatSearchName(name) + "%").get());		
+				"%" + UtilsFunc.treatSearchName(name) + "%"));		
 	}
 
 	public Page<MarketDTO> findMarkets(Pageable pagination) {
@@ -102,8 +102,10 @@ public class SearchFacade {
 	}
 	
 	public Page<ProductDTO> findProductsByName(String name, Pageable pagination) {
-		return modelMapperUtil.productModelToDTO(
-				UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name), productRepository.findAll(pagination)));
+		return UtilsFunc.isBlankOrEmpty(name) ?
+				modelMapperUtil.productModelToDTO(productRepository.findAll(pagination)) :
+				modelMapperUtil.productModelToDTO(UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name),
+						productRepository.findAll(pagination)));
 	}
 	
 	public Page<ProductDTO> findProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pagination) {
