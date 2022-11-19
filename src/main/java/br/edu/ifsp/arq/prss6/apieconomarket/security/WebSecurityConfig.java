@@ -1,6 +1,7 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.security;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -159,6 +160,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		corsConfiguration.setAllowedMethods(allowedMethods);
 		corsConfiguration.setAllowedOrigins(allowedOrigins);
 		corsConfiguration.setAllowCredentials(true);
+		corsConfiguration.addAllowedHeader("Set-Cookie");
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		
 		return source;
