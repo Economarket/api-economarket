@@ -31,7 +31,9 @@ public class RefreshTokenProcessorFilter implements Filter {
 		
 		HttpServletRequest req = (HttpServletRequest) request;
 		
-		if("/auth/token/refresh".equalsIgnoreCase(req.getRequestURI()) && req.getCookies() != null) {
+		if(("/auth/token/refresh".equalsIgnoreCase(req.getRequestURI()) || 
+				"/auth/logout".equalsIgnoreCase(req.getRequestURI())) 
+				&& req.getCookies() != null) {
 			
 			String refreshToken =
 					Stream.of(req.getCookies())
@@ -39,7 +41,7 @@ public class RefreshTokenProcessorFilter implements Filter {
 						.findFirst()
 						.map(cookie -> cookie.getValue())
 						.orElse(null);
-			req = new MyServletRequestWrapper(req, refreshToken);
+//			req = new MyServletRequestWrapper(req, refreshToken);
 			
 			UsernamePasswordAuthenticationToken authenticationToken = 
 					JWTBuilder.getAuthenticationToken(refreshToken);

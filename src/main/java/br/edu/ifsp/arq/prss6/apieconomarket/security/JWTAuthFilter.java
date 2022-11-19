@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,10 +26,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTBuilder;
+import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTParametersConfig;
 import br.edu.ifsp.arq.prss6.apieconomarket.config.TokenTypeEnum;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.User;
 import br.edu.ifsp.arq.prss6.apieconomarket.security.authorization.UserDetail;
 import br.edu.ifsp.arq.prss6.apieconomarket.service.RefreshTokenService;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
 public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
@@ -89,10 +92,15 @@ public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter {
 				refreshToken,
 				LocalDateTime.now());
 		
+		ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
+				.httpOnly(false)
+				.secure(true)
+				.path(EndpointsConstMapping.AuthEP.MAIN)
+				.sameSite("None")
+				.maxAge(JWTParametersConfig.REFRESH_TOKEN_EXPIRATION)
+				.build();
 		
-		Cookie cookie = new Cookie("refreshToken", refreshToken);
-		
-		response.addCookie(cookie);
+		response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		new ObjectMapper().writeValue(response.getOutputStream(), loginResponse);
 	}
