@@ -14,4 +14,6 @@ public class ShoppingListDTO {
 	private String name;
 	
 	private List<ProductListDTO> productList;
+	
+	private Double totalPrice;
 }

@@ -30,12 +30,14 @@ public class ShoppingFacade {
 	private ModelMapperUtil modelMapperUtil;
 	
 	public List<ShoppingListDTO> findByUserId(Long userId) {
-		return modelMapperUtil.shoppingListModelToDTO(repository.findByUserId(userId));
+		return UtilsFunc.addTotalPriceAndPriceXQuantityOnShoppingListDTO(
+				modelMapperUtil.shoppingListModelToDTO(repository.findByUserId(userId)));
 	}
 	
 	public ShoppingListDTO findById(Long id) {
 		Optional<ShoppingList> optShoppingList = repository.findById(id);
-		return modelMapperUtil.shoppingListModelToDTO(optShoppingList.get());
+		return UtilsFunc.addTotalPriceAndPriceXQuantityOnShoppingListDTO(
+				modelMapperUtil.shoppingListModelToDTO(optShoppingList.get()));
 	}
 	
 	public Long saveShoppingList(ShoppingList shoppingList) {

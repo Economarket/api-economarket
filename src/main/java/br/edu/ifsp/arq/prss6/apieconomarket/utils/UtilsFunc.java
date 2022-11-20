@@ -14,6 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTParametersConfig;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductListDTO;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ShoppingListDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Permission;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ProductList;
@@ -113,6 +115,24 @@ public class UtilsFunc {
 	public static List<String> authoritiesToRoleList(Collection<? extends GrantedAuthority> authorities) {
 		return authorities.stream()
 				.map(GrantedAuthority::getAuthority)
+				.collect(Collectors.toList());
+	}
+	
+	public static ShoppingListDTO addTotalPriceAndPriceXQuantityOnShoppingListDTO(ShoppingListDTO shoppingListDTO) {
+		Double totalPrice = 0.0;
+		
+		for(ProductListDTO pl : shoppingListDTO.getProductList()) {
+			pl.setPriceXQuantity(pl.getProduct().getPrice() * pl.getQuantity());
+			totalPrice = totalPrice + pl.getPriceXQuantity();			
+		}
+		
+		shoppingListDTO.setTotalPrice(totalPrice);
+		
+		return shoppingListDTO;
+	}
+	
+	public static List<ShoppingListDTO> addTotalPriceAndPriceXQuantityOnShoppingListDTO(List<ShoppingListDTO> shoppingListDTO) {
+		return shoppingListDTO.stream().map(sl -> addTotalPriceAndPriceXQuantityOnShoppingListDTO(sl))
 				.collect(Collectors.toList());
 	}
 	
