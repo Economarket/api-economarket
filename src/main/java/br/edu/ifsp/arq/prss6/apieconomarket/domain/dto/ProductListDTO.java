@@ -12,4 +12,6 @@ public class ProductListDTO {
 	private ProductDTO product;
 	
 	private Integer quantity;
+	
+	private Double priceXQuantity;
 }

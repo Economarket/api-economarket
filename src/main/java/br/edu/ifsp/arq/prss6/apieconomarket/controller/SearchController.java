@@ -17,7 +17,6 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ShoppingListProductDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.facade.SearchFacade;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.EndpointsConstMapping;
@@ -108,11 +107,5 @@ public class SearchController {
 	public Page<ProductDTO> findProductsByNearbyMarketsAndName(@RequestParam Double distance, 
 			@RequestParam Double locateX, @RequestParam Double locateY, String name, Pageable pagination) {
 		return facade.findProductsByNearbyMarketsAndName(distance, locateX, locateY, name, pagination);
-	}
-	
-	@GetMapping(EndpointsConstMapping.ProductEP.SHOPPING_BY_MARKET)
-	public Page<ShoppingListProductDTO> findShoppingListProductsByMarket(@PathVariable Long shoppingListId, 
-			@SortDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pagination) {
-		return facade.findShoppingListProductsByMarket(shoppingListId, pagination);
 	}
 }

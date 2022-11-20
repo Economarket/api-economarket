@@ -57,7 +57,6 @@ public class ModelMapperUtil {
 	
 	public ProductDTO productModelToDTO(Product product) {
 		ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
-		productDTO.setMarket(marketModelToDTO(product.getMarkets().get(0)));
 		
 		return productDTO;
 	}
@@ -119,8 +118,4 @@ public class ModelMapperUtil {
 	}
 	
 	//TODO: Adicionar outros métodos para mapeamento Entidade -> Interface
-	/*Obs: Todos os Facade devem ter um objeto do tipo ModelMapperUtil para fazerem a conversão.
-	 * Obs²: Verificar possibilidade e necessidade de usar o mapeamento para inserts no banco (testar POSTs
-	 * para ver se permitem apenas os dados básicos de cada objeto)
-	 */
 }

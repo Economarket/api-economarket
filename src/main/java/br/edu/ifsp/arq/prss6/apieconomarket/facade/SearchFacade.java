@@ -14,7 +14,6 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
-import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ShoppingListProductDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.BrandRepository;
@@ -143,14 +142,5 @@ public class SearchFacade {
 	
 	public Page<ProductDTO> findProductsByCategoryAndName(Long id, String name, Pageable pagination){
 		return modelMapperUtil.productModelToDTO(productRepository.findByCategoryId(id, pagination));
-	}
-
-	public Page<ShoppingListProductDTO> findShoppingListProductsByMarket(Long shoppingListId, Pageable pagination) {
-		
-		//Buscar a shopping list
-		
-		//Para cada ProductList dentro, buscar
-		
-		return null;
 	}
 }

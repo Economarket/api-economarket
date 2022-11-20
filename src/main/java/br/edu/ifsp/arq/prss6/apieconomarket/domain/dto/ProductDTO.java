@@ -1,5 +1,7 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.domain.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +19,7 @@ public class ProductDTO {
 	
 	private BrandDTO brand;
 	
-	private MarketDTO market;
+	private List<MarketDTO> markets;
 	
 	private String unity;
 	
