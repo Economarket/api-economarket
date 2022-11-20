@@ -3,6 +3,7 @@ package br.edu.ifsp.arq.prss6.apieconomarket.facade;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.BrandDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.CategoryDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.MarketDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ProductDTO;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.dto.ShoppingListProductDTO;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Market;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.BrandRepository;
@@ -83,6 +85,19 @@ public class SearchFacade {
 		return nearbyMarkets;
 	}
 	
+	public Page<ProductDTO> findProductsByNearbyMarketsAndName(Double distance, Double locateX, Double locateY,
+			String name, Pageable pagination) {
+		
+		List<Market> nearbyMarkets = findMarketsByDistance(distance, locateX, locateY);
+		
+		List<Long> nearbyMarketsIds = nearbyMarkets.stream().map(m -> m.getId()).collect(Collectors.toList());
+		
+		return UtilsFunc.isBlankOrEmpty(name) ?
+				modelMapperUtil.productModelToDTO(productRepository.findByMarketsIdIn(nearbyMarketsIds, pagination)) :
+				modelMapperUtil.productModelToDTO(UtilsFunc.productsBySearch(UtilsFunc.treatSearchName(name), 
+						productRepository.findByMarketsIdIn(nearbyMarketsIds, pagination)));
+	}
+	
 	public MarketDTO findMarketById(Long id) {
 		Optional<Market> optMarket = marketRepository.findById(id);
 		return modelMapperUtil.marketModelToDTO(optMarket.orElseThrow());
@@ -128,5 +143,14 @@ public class SearchFacade {
 	
 	public Page<ProductDTO> findProductsByCategoryAndName(Long id, String name, Pageable pagination){
 		return modelMapperUtil.productModelToDTO(productRepository.findByCategoryId(id, pagination));
+	}
+
+	public Page<ShoppingListProductDTO> findShoppingListProductsByMarket(Long shoppingListId, Pageable pagination) {
+		
+		//Buscar a shopping list
+		
+		//Para cada ProductList dentro, buscar
+		
+		return null;
 	}
 }

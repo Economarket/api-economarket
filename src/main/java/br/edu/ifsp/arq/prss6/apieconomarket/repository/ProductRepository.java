@@ -1,5 +1,7 @@
 package br.edu.ifsp.arq.prss6.apieconomarket.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +19,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	public Page<Product> findByPriceRange(@Param("minPrice")Double minPrice, @Param("maxPrice")Double maxPrice, Pageable pagination);
 	
 	public Page<Product> findByMarketsId(Long id, Pageable pagination);
+
+	public Page<Product> findByMarketsIdIn(List<Long> id, Pageable pagination);
 	
 	public Page<Product> findByMarketsIdAndSearchNameLike(Long id, String name, Pageable pagination);
 	
