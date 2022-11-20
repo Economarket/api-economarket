@@ -33,8 +33,6 @@ public class ShoppingController {
 		return facade.findByUserId(userId);
 	}
 	
-	//TODO: Criar endpoint para retornar produtos por menor preço em cada mercado
-	
 	@PostMapping
 	public Long saveShoppingList(@Valid @RequestBody ShoppingList shoppingList) {
 		return facade.saveShoppingList(shoppingList);

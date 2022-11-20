@@ -12,6 +12,7 @@ import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ShoppingList;
 import br.edu.ifsp.arq.prss6.apieconomarket.repository.ShoppingRepository;
 import br.edu.ifsp.arq.prss6.apieconomarket.utils.ModelMapperUtil;
+import br.edu.ifsp.arq.prss6.apieconomarket.utils.UtilsFunc;
 
 @Service
 public class ShoppingFacade {
@@ -40,6 +41,9 @@ public class ShoppingFacade {
 	public Long saveShoppingList(ShoppingList shoppingList) {
 		Long idList;
 		
+		shoppingList.setProductList(
+				UtilsFunc.treatDuplicatedProducts(shoppingList.getProductList()));
+		
 		List<Product> products = shoppingList.getProductList().stream().map(t -> t.getProduct()).collect(Collectors.toList());
 		ShoppingList sl = new ShoppingList();
 		if(!products.isEmpty()) {
@@ -67,6 +71,8 @@ public class ShoppingFacade {
 	}
 	
 	public ShoppingListDTO updateShoppingList(ShoppingList shoppingList) {
+		shoppingList.setProductList(
+				UtilsFunc.treatDuplicatedProducts(shoppingList.getProductList()));
 		
 		shoppingList.getProductList().forEach(pl -> {
 			pl.setShoppingList(new ShoppingList(shoppingList.getId()));

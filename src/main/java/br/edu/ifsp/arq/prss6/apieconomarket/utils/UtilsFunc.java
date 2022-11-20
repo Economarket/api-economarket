@@ -3,7 +3,9 @@ package br.edu.ifsp.arq.prss6.apieconomarket.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -14,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import br.edu.ifsp.arq.prss6.apieconomarket.config.JWTParametersConfig;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Permission;
 import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.Product;
+import br.edu.ifsp.arq.prss6.apieconomarket.domain.model.ProductList;
 
 public class UtilsFunc {
 	
@@ -81,6 +84,30 @@ public class UtilsFunc {
 				.collect(Collectors.toList());
 		
 		return authorities;
+	}
+	
+	public static List<ProductList> treatDuplicatedProducts(List<ProductList> productLists) {
+		Map<Long, ProductList> treatedPl = new HashMap<>();
+		
+		productLists.forEach(pl -> {
+			Long prodId = pl.getProduct().getId();
+			
+			if(treatedPl.isEmpty() || !treatedPl.containsKey(prodId)) {
+				treatedPl.put(prodId, pl);
+			}
+			else {
+				Integer quantity = treatedPl.get(prodId).getQuantity();
+				pl.setQuantity(pl.getQuantity() + quantity);
+				
+				treatedPl.put(prodId, pl);
+			}
+		});
+		
+		return new ArrayList<>(treatedPl.values());
+	}
+	
+	public static Boolean equalProducts(ProductList pl1, ProductList pl2) {
+		return pl1.getProduct().getId() == pl2.getProduct().getId();
 	}
 	
 	public static List<String> authoritiesToRoleList(Collection<? extends GrantedAuthority> authorities) {

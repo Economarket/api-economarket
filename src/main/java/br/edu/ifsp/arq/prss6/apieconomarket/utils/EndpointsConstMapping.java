@@ -41,9 +41,11 @@ public class EndpointsConstMapping {
 		public static final String MAIN = "/product";		
 		public static final String BY_ID = MAIN + "/{id}";
 		public static final String BY_NAME = MAIN + "/name";
+		public static final String BY_NEARBY_MARKETS = MAIN + "/distance";
 		public static final String BY_MARKET = MAIN + "/market/{id}";
 		public static final String BY_CATEGORY = MAIN + "/category/{id}";
 		public static final String BY_PRICE_RANGE = MAIN + "/pricerange";
+		public static final String SHOPPING_BY_MARKET = MAIN + "/shopping/market/{shoppingListId}";
 	}
 	
 	public class RegisterEP {
