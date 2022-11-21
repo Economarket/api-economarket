@@ -204,4 +204,13 @@ public class UtilsFunc {
 			p -> similarity(p.getSearchName(), search) >= MIN_SIMILARITY
 		).collect(Collectors.toList()));
 	}
+	
+	public static Page<Product> productsBySearch(String search, List<Product> products) {
+		products.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
+		
+		double MIN_SIMILARITY = 0.6;
+		return new PageImpl<Product>(products.stream().filter(
+				p -> similarity(p.getSearchName(), search) >= MIN_SIMILARITY
+				).collect(Collectors.toList()));
+	}
 }
