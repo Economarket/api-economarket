@@ -55,6 +55,8 @@ public class UserFacade {
 	}
 
 	public User updateUser(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 		if(UtilsFunc.stringEquals(user.getEmail(), "admin@admin.com") ||
 				UtilsFunc.stringEquals(user.getEmail(), "manager@manager.com")) {
 			
