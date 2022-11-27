@@ -64,6 +64,12 @@ public class UserFacade {
 					"Operação inválida! O usuário é privado e não permite modificações. (PARA DE FAZER MERDA NA APLICAÇÃO!!!)");
 		}
 		
+		Permission permission = permissionRepository.findByName(UtilsCons.USER_DEFAULT_PERMISSION).get();
+		if(permission == null) {
+			throw new RuntimeException("Permissão não encontrada!");
+		}
+		
+		user.setPermissions(Arrays.asList(permission));
 		return userRepository.save(user);
 	}
 
